@@ -1,1061 +1,583 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title data-i18n="pageTitle">АвтоЗдай — Терміновий викуп авто в Дніпрі, Запоріжжі, Донецькій обл.</title>
-  <meta name="description" content="Терміновий викуп авто в Дніпрі, Запоріжжі та Донецькій області. Платимо до 95% від ринкової вартості. Виїжджаємо за 30 хвилин. Гроші одразу після угоди.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; font-size: 16px; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>АвтоЗдай — Терміновий викуп авто в Дніпрі, Запоріжжі, Донецькій обл.</title>
+<meta name="description" content="Терміновий викуп авто. Платимо до 95% від ринкової вартості. Гроші одразу.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+:root{--bg:#0b1929;--bg2:#0f2035;--bg3:#152a44;--bg4:#1a3252;--gold:#f59e0b;--gold2:#fbbf24;--white:#fff;--muted:#94a3b8;--border:rgba(245,158,11,.2)}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--white);overflow-x:hidden}
 
-    :root {
-      --bg:      #0b1929;
-      --bg2:     #0f2035;
-      --bg3:     #152a44;
-      --bg4:     #1a3252;
-      --gold:    #f59e0b;
-      --gold2:   #fbbf24;
-      --gold3:   #fde68a;
-      --white:   #ffffff;
-      --muted:   #94a3b8;
-      --border:  rgba(245,158,11,.2);
-    }
+/* ── LANG CSS SWITCH ── */
+.ru{display:none}
+html[lang="ru"] .ua{display:none}
+html[lang="ru"] .ru{display:revert}
 
-    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--white); overflow-x: hidden; }
+/* ── HEADER ── */
+.header{background:var(--bg2);padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:200;border-bottom:2px solid var(--gold);gap:10px}
+.logo{font-size:1.6rem;font-weight:900;color:var(--gold);letter-spacing:-1px;text-decoration:none;flex-shrink:0}
+.logo em{color:var(--white);font-style:normal}
+.lang-sw{display:flex;gap:3px;background:rgba(255,255,255,.08);border-radius:6px;padding:3px;flex-shrink:0}
+.lang-btn{background:none;border:none;color:var(--muted);font-size:.75rem;font-weight:700;padding:4px 10px;border-radius:4px;cursor:pointer;transition:all .15s;font-family:inherit;letter-spacing:.5px}
+.lang-btn.active{background:var(--gold);color:var(--bg)}
+.lang-btn:hover:not(.active){color:var(--white)}
+.hdr-right{text-align:right}
+.hdr-phone{display:block;font-size:1.2rem;font-weight:800;color:var(--gold2);text-decoration:none;line-height:1.2;white-space:nowrap}
+.hdr-msg{display:flex;gap:12px;justify-content:flex-end;margin-top:3px}
+.hdr-msg a{font-size:.75rem;font-weight:600;color:var(--muted);text-decoration:none;transition:color .2s}
+.hdr-msg a:hover{color:var(--gold)}
 
-    /* ═══════════════ HEADER ═══════════════ */
-    .header {
-      background: var(--bg2);
-      padding: 0 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 64px;
-      position: sticky; top: 0; z-index: 200;
-      border-bottom: 2px solid var(--gold);
-      gap: 12px;
-    }
-    .logo { font-size: 1.7rem; font-weight: 900; color: var(--gold); letter-spacing: -1px; text-decoration: none; flex-shrink: 0; }
-    .logo em { color: var(--white); font-style: normal; }
-    .hdr-right { text-align: right; display: flex; align-items: center; gap: 14px; }
-    .hdr-phone-block { text-align: right; }
-    .hdr-phone { display: block; font-size: 1.25rem; font-weight: 800; color: var(--gold2); text-decoration: none; line-height: 1.2; white-space: nowrap; }
-    .hdr-messengers { display: flex; gap: 14px; justify-content: flex-end; margin-top: 2px; }
-    .hdr-messengers a { font-size: .78rem; font-weight: 600; color: var(--muted); text-decoration: none; transition: color .2s; }
-    .hdr-messengers a:hover { color: var(--gold); }
+/* ── FLOATING MESSENGERS ── */
+.float-msg{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:400;display:flex;flex-direction:column;gap:6px}
+.fm-btn{display:flex;align-items:center;justify-content:flex-end;width:52px;height:52px;border-radius:10px 0 0 10px;text-decoration:none;overflow:hidden;transition:width .22s ease;box-shadow:-3px 3px 14px rgba(0,0,0,.4);position:relative}
+.fm-btn:hover{width:144px}
+.fm-icon{font-size:1.35rem;position:absolute;right:14px;flex-shrink:0}
+.fm-lbl{font-size:.78rem;font-weight:700;color:#fff;position:absolute;left:14px;opacity:0;transition:opacity .18s;white-space:nowrap}
+.fm-btn:hover .fm-lbl{opacity:1}
+.fm-vi{background:#7360f2}
+.fm-tg{background:#229ed9}
+.fm-wa{background:#25d366}
+.fm-vi:hover{box-shadow:-4px 4px 20px rgba(115,96,242,.5)}
+.fm-tg:hover{box-shadow:-4px 4px 20px rgba(34,158,217,.5)}
+.fm-wa:hover{box-shadow:-4px 4px 20px rgba(37,211,102,.5)}
 
-    /* ═══════════════ LANG SWITCHER ═══════════════ */
-    .lang-sw {
-      display: flex;
-      gap: 3px;
-      background: rgba(255,255,255,.08);
-      border-radius: 6px;
-      padding: 3px;
-      flex-shrink: 0;
-    }
-    .lang-btn {
-      background: none;
-      border: none;
-      color: var(--muted);
-      font-size: .75rem;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: all .15s;
-      font-family: inherit;
-      letter-spacing: .5px;
-    }
-    .lang-btn.active { background: var(--gold); color: var(--bg); }
-    .lang-btn:hover:not(.active) { color: var(--white); }
+/* ── TICKER ── */
+.ticker-block{overflow:hidden}
+.tick1{background:var(--gold);padding:9px 0}
+.tick2{background:var(--bg3);padding:9px 0;border-bottom:1px solid var(--border)}
+.ticker-move{display:inline-block;white-space:nowrap;animation:move 30s linear infinite}
+.tick1 .ticker-move{color:var(--bg);font-weight:800;font-size:.88rem;letter-spacing:.5px}
+.tick2 .ticker-move{color:var(--gold);font-weight:700;font-size:.88rem;letter-spacing:.5px}
+@keyframes move{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-    /* ═══════════════ FLOATING MESSENGERS ═══════════════ */
-    .float-msg {
-      position: fixed;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 400;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .fm-item {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 52px;
-      height: 52px;
-      border-radius: 10px 0 0 10px;
-      text-decoration: none;
-      transition: width .22s ease, padding .22s ease, box-shadow .22s;
-      overflow: hidden;
-      white-space: nowrap;
-      box-shadow: -3px 3px 14px rgba(0,0,0,.35);
-    }
-    .fm-item:hover {
-      width: 140px;
-      justify-content: flex-start;
-      padding-left: 14px;
-      gap: 10px;
-    }
-    .fm-icon { font-size: 1.4rem; flex-shrink: 0; }
-    .fm-label {
-      font-size: .78rem;
-      font-weight: 700;
-      color: #fff;
-      opacity: 0;
-      transition: opacity .18s ease;
-      pointer-events: none;
-    }
-    .fm-item:hover .fm-label { opacity: 1; }
-    .fm-viber { background: #7360f2; }
-    .fm-tg    { background: #229ed9; }
-    .fm-wa    { background: #25d366; }
-    .fm-viber:hover { box-shadow: -4px 4px 20px rgba(115,96,242,.5); }
-    .fm-tg:hover    { box-shadow: -4px 4px 20px rgba(34,158,217,.5); }
-    .fm-wa:hover    { box-shadow: -4px 4px 20px rgba(37,211,102,.5); }
+/* ── HERO ── */
+.hero{background:linear-gradient(160deg,rgba(11,25,41,.93) 0%,rgba(15,32,53,.88) 50%,rgba(21,42,68,.86) 100%),url('https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=1600&q=85') center/cover no-repeat;padding:60px 24px 70px}
+.hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 420px;gap:48px;align-items:center}
+.hero-left h1{font-size:clamp(2.2rem,5vw,3.8rem);font-weight:900;line-height:1.05;text-transform:uppercase;letter-spacing:-1px}
+.hero-left h1 .hl{color:var(--gold)}
+.hero-sub{margin-top:16px;font-size:1.15rem;color:var(--muted);line-height:1.5}
+.hero-region{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.tag{border:1px solid var(--gold);color:var(--gold2);padding:5px 14px;border-radius:50px;font-size:.82rem;font-weight:600;background:rgba(245,158,11,.08)}
+.hero-badge{margin-top:32px;display:flex;gap:28px;flex-wrap:wrap}
+.badge-num{font-size:2rem;font-weight:900;color:var(--gold);line-height:1}
+.badge-txt{font-size:.75rem;color:var(--muted);margin-top:2px;max-width:90px;line-height:1.3}
+.hero-form{background:var(--bg2);border:1px solid var(--border);border-top:3px solid var(--gold);border-radius:12px;padding:32px 28px;box-shadow:0 24px 64px rgba(0,0,0,.5)}
+.hero-form h2{font-size:1.1rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.hero-form>p{color:var(--muted);font-size:.85rem;margin-bottom:20px}
+.f-field{margin-bottom:13px}
+.f-field label{display:block;font-size:.78rem;color:var(--muted);margin-bottom:5px;font-weight:600;text-transform:uppercase;letter-spacing:.3px}
+.f-field select,.f-field input{width:100%;padding:12px 14px;background:var(--bg3);border:1px solid rgba(255,255,255,.08);border-radius:8px;color:var(--white);font-size:.95rem;font-family:inherit;appearance:none;transition:border-color .2s}
+.f-field select:focus,.f-field input:focus{outline:none;border-color:var(--gold)}
+.f-field select option{background:var(--bg2)}
+.btn-gold{width:100%;padding:15px;background:var(--gold);color:var(--bg);font-weight:900;font-size:1rem;text-transform:uppercase;letter-spacing:.5px;border:none;border-radius:8px;cursor:pointer;transition:background .15s,transform .1s}
+.btn-gold:hover{background:var(--gold2);transform:translateY(-1px)}
+.f-note{text-align:center;font-size:.73rem;color:var(--muted);margin-top:10px}
 
-    /* ═══════════════ TICKER ═══════════════ */
-    .ticker-block { overflow: hidden; }
-    .ticker-row1 { background: var(--gold); padding: 9px 0; }
-    .ticker-row2 { background: var(--bg3); padding: 9px 0; border-bottom: 1px solid var(--border); }
-    .ticker-move {
-      display: inline-block;
-      white-space: nowrap;
-      animation: move 30s linear infinite;
-    }
-    .ticker-row1 .ticker-move { color: var(--bg); font-weight: 800; font-size: .88rem; letter-spacing: .5px; }
-    .ticker-row2 .ticker-move { color: var(--gold); font-weight: 700; font-size: .88rem; letter-spacing: .5px; }
-    @keyframes move { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+/* ── SECTIONS ── */
+.section{padding:72px 24px}
+.section.dark{background:var(--bg2)}
+.section.darker{background:var(--bg3)}
+.wrap{max-width:1100px;margin:0 auto}
+.s-title{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:900;text-transform:uppercase;letter-spacing:-.5px;text-align:center}
+.s-title .hl{color:var(--gold)}
+.s-sub{text-align:center;color:var(--muted);margin-top:8px;font-size:.95rem}
 
-    /* ═══════════════ HERO ═══════════════ */
-    .hero {
-      background:
-        linear-gradient(160deg, rgba(11,25,41,.93) 0%, rgba(15,32,53,.88) 50%, rgba(21,42,68,.86) 100%),
-        url('https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=1600&q=85') center/cover no-repeat;
-      padding: 60px 24px 70px;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 420px;
-      gap: 48px;
-      align-items: center;
-    }
-    .hero-left h1 {
-      font-size: clamp(2.2rem, 5vw, 3.8rem);
-      font-weight: 900;
-      line-height: 1.05;
-      text-transform: uppercase;
-      letter-spacing: -1px;
-    }
-    .hero-left h1 .hl { color: var(--gold); }
-    .hero-left .hero-sub { margin-top: 16px; font-size: 1.15rem; color: var(--muted); line-height: 1.5; }
-    .hero-left .hero-region { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 8px; }
-    .tag {
-      border: 1px solid var(--gold);
-      color: var(--gold2);
-      padding: 5px 14px;
-      border-radius: 50px;
-      font-size: .82rem;
-      font-weight: 600;
-      background: rgba(245,158,11,.08);
-    }
-    .hero-left .hero-badge { margin-top: 32px; display: flex; gap: 28px; flex-wrap: wrap; }
-    .badge-item { text-align: center; }
-    .badge-num { font-size: 2rem; font-weight: 900; color: var(--gold); line-height: 1; }
-    .badge-txt { font-size: .75rem; color: var(--muted); margin-top: 2px; max-width: 90px; line-height: 1.3; }
+/* ── CONDITIONS ── */
+.cond-grid{margin-top:40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:14px}
+.cond-card{background:var(--bg3);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:24px 12px;text-align:center;transition:border-color .2s,transform .2s;cursor:default}
+.cond-card:hover{border-color:var(--gold);transform:translateY(-3px)}
+.cond-card .ci{font-size:2rem;margin-bottom:10px;display:block}
+.cond-card p{font-size:.83rem;font-weight:700;text-transform:uppercase;letter-spacing:.3px;line-height:1.3}
 
-    /* hero form */
-    .hero-form {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-top: 3px solid var(--gold);
-      border-radius: 12px;
-      padding: 32px 28px;
-      box-shadow: 0 24px 64px rgba(0,0,0,.5);
-    }
-    .hero-form h2 { font-size: 1.1rem; font-weight: 800; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 4px; }
-    .hero-form p { color: var(--muted); font-size: .85rem; margin-bottom: 20px; }
-    .f-field { margin-bottom: 13px; }
-    .f-field label { display: block; font-size: .78rem; color: var(--muted); margin-bottom: 5px; font-weight: 600; text-transform: uppercase; letter-spacing: .3px; }
-    .f-field select,
-    .f-field input {
-      width: 100%;
-      padding: 12px 14px;
-      background: var(--bg3);
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 8px;
-      color: var(--white);
-      font-size: .95rem;
-      font-family: inherit;
-      appearance: none;
-      transition: border-color .2s;
-    }
-    .f-field select:focus, .f-field input:focus { outline: none; border-color: var(--gold); }
-    .f-field select option { background: var(--bg2); }
-    .btn-gold {
-      width: 100%;
-      padding: 15px;
-      background: var(--gold);
-      color: var(--bg);
-      font-weight: 900;
-      font-size: 1rem;
-      text-transform: uppercase;
-      letter-spacing: .5px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background .15s, transform .1s;
-    }
-    .btn-gold:hover { background: var(--gold2); transform: translateY(-1px); }
-    .f-note { text-align: center; font-size: .73rem; color: var(--muted); margin-top: 10px; }
+/* ── BENEFITS ── */
+.benefits-top{text-align:center;margin-bottom:40px}
+.benefits-top small{color:var(--gold);font-size:.85rem;font-weight:700;text-transform:uppercase;letter-spacing:1px}
+.benefits-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.benefit-card{border:1px solid var(--border);border-radius:12px;padding:28px 22px;background:var(--bg)}
+.benefit-card .bi{font-size:2.2rem;margin-bottom:12px;display:block}
+.benefit-card .bnum{font-size:2rem;font-weight:900;color:var(--gold);line-height:1;margin-bottom:6px}
+.benefit-card h3{font-size:.9rem;font-weight:700;text-transform:uppercase;letter-spacing:.3px;margin-bottom:8px}
+.benefit-card p{font-size:.85rem;color:var(--muted);line-height:1.5}
 
-    /* ═══════════════ SECTION SHELL ═══════════════ */
-    .section { padding: 72px 24px; }
-    .section.dark { background: var(--bg2); }
-    .section.darker { background: var(--bg3); }
-    .wrap { max-width: 1100px; margin: 0 auto; }
-    .s-title {
-      font-size: clamp(1.6rem, 3vw, 2.2rem);
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: -0.5px;
-      text-align: center;
-    }
-    .s-title .hl { color: var(--gold); }
-    .s-sub { text-align: center; color: var(--muted); margin-top: 8px; font-size: .95rem; }
+/* ── MID FORM ── */
+.mid-form-section{background:linear-gradient(135deg,var(--bg3),var(--bg4));padding:72px 24px}
+.mid-form-inner{max-width:620px;margin:0 auto;text-align:center}
+.mid-form-inner .s-title{margin-bottom:8px}
+.mid-form-inner .s-sub{margin-bottom:32px}
+.mid-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.mid-form-grid .f-field{margin-bottom:0}
+.f-full{grid-column:1/-1}
 
-    /* ═══════════════ CONDITIONS ═══════════════ */
-    .cond-grid {
-      margin-top: 40px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-      gap: 14px;
-    }
-    .cond-card {
-      background: var(--bg3);
-      border: 1px solid rgba(255,255,255,.06);
-      border-radius: 10px;
-      padding: 24px 12px;
-      text-align: center;
-      transition: border-color .2s, transform .2s;
-      cursor: default;
-    }
-    .cond-card:hover { border-color: var(--gold); transform: translateY(-3px); }
-    .cond-card .ci { font-size: 2rem; margin-bottom: 10px; display: block; }
-    .cond-card p { font-size: .83rem; font-weight: 700; text-transform: uppercase; letter-spacing: .3px; line-height: 1.3; }
+/* ── CARS SLIDER ── */
+.cars-slider-wrap{margin-top:40px;overflow:hidden}
+.cars-slider{display:flex;gap:20px;animation:slide 28s linear infinite}
+.cars-slider:hover{animation-play-state:paused}
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.car-card{flex:0 0 260px;background:var(--bg3);border:1px solid rgba(255,255,255,.07);border-radius:10px;overflow:hidden;text-align:center;transition:border-color .2s,transform .2s}
+.car-card:hover{border-color:var(--gold);transform:translateY(-3px)}
+.car-card img{width:100%;height:170px;object-fit:cover;display:block}
+.car-card .car-info{padding:14px 16px}
+.car-card .car-model{font-weight:700;font-size:.9rem}
+.car-card .car-year{color:var(--muted);font-size:.8rem;margin-top:2px}
+.car-card .car-price{color:var(--gold);font-weight:800;font-size:1rem;margin-top:8px}
+.car-card .car-cond{color:var(--muted);font-size:.75rem;margin-top:4px}
 
-    /* ═══════════════ BENEFITS ═══════════════ */
-    .benefits-top { text-align: center; margin-bottom: 40px; }
-    .benefits-top small { color: var(--gold); font-size: .85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
-    .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
-    .benefit-card { border: 1px solid var(--border); border-radius: 12px; padding: 28px 22px; background: var(--bg); }
-    .benefit-card .bi { font-size: 2.2rem; margin-bottom: 12px; display: block; }
-    .benefit-card .bnum { font-size: 2rem; font-weight: 900; color: var(--gold); line-height: 1; margin-bottom: 6px; }
-    .benefit-card h3 { font-size: .9rem; font-weight: 700; text-transform: uppercase; letter-spacing: .3px; margin-bottom: 8px; }
-    .benefit-card p { font-size: .85rem; color: var(--muted); line-height: 1.5; }
+/* ── CALLUS ── */
+.callus{background:var(--bg2);padding:64px 24px;text-align:center}
+.callus h2{font-size:clamp(1.5rem,3vw,2rem);font-weight:900;text-transform:uppercase;margin-bottom:8px}
+.callus>p{color:var(--muted);margin-bottom:32px}
+.callus-btns{display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
+.btn-call{display:inline-flex;align-items:center;gap:9px;padding:15px 28px;border-radius:8px;font-weight:800;font-size:.95rem;text-decoration:none;transition:opacity .2s,transform .15s}
+.btn-call:hover{opacity:.88;transform:translateY(-2px)}
+.b-phone{background:var(--gold);color:var(--bg);font-size:1.1rem}
+.b-viber{background:#7360f2;color:#fff}
+.b-tg{background:#229ed9;color:#fff}
+.b-wa{background:#25d366;color:#fff}
 
-    /* ═══════════════ MID FORM ═══════════════ */
-    .mid-form-section { background: linear-gradient(135deg, var(--bg3), var(--bg4)); padding: 72px 24px; }
-    .mid-form-inner { max-width: 620px; margin: 0 auto; text-align: center; }
-    .mid-form-inner .s-title { margin-bottom: 8px; }
-    .mid-form-inner .s-sub { margin-bottom: 32px; }
-    .mid-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
-    .mid-form-grid .f-field { margin-bottom: 0; }
-    .f-full { grid-column: 1 / -1; }
+/* ── STATS ── */
+.stats-bar{background:var(--gold);padding:40px 24px}
+.stats-grid{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;text-align:center}
+.stat-num{font-size:2.8rem;font-weight:900;color:var(--bg);line-height:1}
+.stat-lbl{font-size:.82rem;font-weight:700;color:var(--bg2);margin-top:4px}
 
-    /* ═══════════════ CARS SLIDER ═══════════════ */
-    .cars-slider-wrap { margin-top: 40px; overflow: hidden; position: relative; }
-    .cars-slider { display: flex; gap: 20px; animation: slide 28s linear infinite; }
-    .cars-slider:hover { animation-play-state: paused; }
-    @keyframes slide { from { transform: translateX(0) } to { transform: translateX(-50%) } }
-    .car-card {
-      flex: 0 0 260px;
-      background: var(--bg3);
-      border: 1px solid rgba(255,255,255,.07);
-      border-radius: 10px;
-      overflow: hidden;
-      text-align: center;
-      transition: border-color .2s, transform .2s;
-    }
-    .car-card:hover { border-color: var(--gold); transform: translateY(-3px); }
-    .car-card img { width: 100%; height: 170px; object-fit: cover; display: block; }
-    .car-card .car-info { padding: 14px 16px; }
-    .car-card .car-model { font-weight: 700; font-size: .9rem; }
-    .car-card .car-year { color: var(--muted); font-size: .8rem; margin-top: 2px; }
-    .car-card .car-price { color: var(--gold); font-weight: 800; font-size: 1rem; margin-top: 8px; }
-    .car-card .car-cond { color: var(--muted); font-size: .75rem; margin-top: 4px; }
+/* ── REVIEWS ── */
+.reviews-section{padding:72px 24px;background:var(--bg2)}
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:40px}
+.rev-card{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:26px 22px}
+.rev-stars{color:var(--gold);font-size:1.05rem;margin-bottom:12px;letter-spacing:2px}
+.rev-text{font-size:.88rem;color:#cbd5e1;line-height:1.65;margin-bottom:16px}
+.rev-author{font-weight:800;font-size:.88rem}
+.rev-tag{color:var(--muted);font-size:.78rem;margin-top:2px}
 
-    /* ═══════════════ CALL US ═══════════════ */
-    .callus { background: var(--bg2); padding: 64px 24px; text-align: center; }
-    .callus h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 900; text-transform: uppercase; margin-bottom: 8px; }
-    .callus p { color: var(--muted); margin-bottom: 32px; }
-    .callus-buttons { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
-    .btn-call { display: inline-flex; align-items: center; gap: 9px; padding: 15px 28px; border-radius: 8px; font-weight: 800; font-size: .95rem; text-decoration: none; transition: opacity .2s, transform .15s; }
-    .btn-call:hover { opacity: .88; transform: translateY(-2px); }
-    .b-phone { background: var(--gold); color: var(--bg); font-size: 1.1rem; }
-    .b-viber { background: #7360f2; color: #fff; }
-    .b-tg    { background: #229ed9; color: #fff; }
-    .b-wa    { background: #25d366; color: #fff; }
+/* ── FAQ ── */
+.faq-section{padding:72px 24px;background:var(--bg2)}
+.faq-wrap{max-width:760px;margin:40px auto 0}
+.faq-item{border-bottom:1px solid rgba(255,255,255,.07)}
+.faq-q{padding:20px 0;font-weight:700;font-size:.97rem;cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;user-select:none}
+.faq-q .arr{color:var(--gold);flex-shrink:0;transition:transform .25s;margin-top:2px}
+.faq-a{display:none;padding-bottom:18px;color:var(--muted);font-size:.9rem;line-height:1.65}
+.faq-item.open .faq-a{display:block}
+.faq-item.open .arr{transform:rotate(180deg)}
 
-    /* ═══════════════ STATS + REVIEWS ═══════════════ */
-    .stats-bar { background: var(--gold); padding: 40px 24px; }
-    .stats-grid {
-      max-width: 900px; margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 16px; text-align: center;
-    }
-    .stat-num { font-size: 2.8rem; font-weight: 900; color: var(--bg); line-height: 1; }
-    .stat-lbl { font-size: .82rem; font-weight: 700; color: var(--bg2); margin-top: 4px; }
+/* ── REGIONS ── */
+.regions-section{padding:56px 24px;background:var(--bg);text-align:center}
+.regions-chips{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:24px}
+.region-chip{background:var(--bg3);border:2px solid var(--gold);border-radius:12px;padding:18px 30px;font-size:1rem;font-weight:700}
+.region-chip span{display:block;color:var(--muted);font-size:.78rem;font-weight:400;margin-top:3px}
 
-    .reviews-section { padding: 72px 24px; background: var(--bg2); }
-    .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 40px; }
-    .rev-card { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 26px 22px; }
-    .rev-stars { color: var(--gold); font-size: 1.05rem; margin-bottom: 12px; letter-spacing: 2px; }
-    .rev-text { font-size: .88rem; color: #cbd5e1; line-height: 1.65; margin-bottom: 16px; }
-    .rev-author { font-weight: 800; font-size: .88rem; }
-    .rev-tag { color: var(--muted); font-size: .78rem; margin-top: 2px; }
+/* ── FOOTER ── */
+footer{background:#060e1b;padding:32px 24px;text-align:center;color:var(--muted);font-size:.83rem}
+.foot-logo{font-size:1.4rem;font-weight:900;color:var(--gold);margin-bottom:8px}
+footer a{color:var(--gold);text-decoration:none}
 
-    /* ═══════════════ FAQ ═══════════════ */
-    .faq-section { padding: 72px 24px; }
-    .faq-wrap { max-width: 760px; margin: 0 auto; margin-top: 40px; }
-    .faq-item { border-bottom: 1px solid rgba(255,255,255,.07); }
-    .faq-q {
-      padding: 20px 0; font-weight: 700; font-size: .97rem; cursor: pointer;
-      display: flex; justify-content: space-between; align-items: flex-start;
-      gap: 12px; user-select: none;
-    }
-    .faq-q .arr { color: var(--gold); flex-shrink: 0; font-size: 1rem; transition: transform .25s; margin-top: 2px; }
-    .faq-a { display: none; padding-bottom: 18px; color: var(--muted); font-size: .9rem; line-height: 1.65; }
-    .faq-item.open .faq-a { display: block; }
-    .faq-item.open .arr { transform: rotate(180deg); }
+/* ── MODAL ── */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:999;align-items:center;justify-content:center}
+.modal-bg.show{display:flex}
+.modal-box{background:var(--bg2);border:1px solid var(--gold);border-radius:16px;padding:44px 32px;max-width:400px;width:90%;text-align:center;position:relative}
+.modal-box .mx{position:absolute;top:14px;right:18px;font-size:1.4rem;cursor:pointer;color:var(--muted)}
+.modal-box .mi{font-size:3rem;margin-bottom:12px}
+.modal-box h2{font-size:1.4rem;font-weight:800;margin-bottom:8px}
+.modal-box p{color:var(--muted);font-size:.9rem;margin-bottom:24px}
 
-    /* ═══════════════ REGIONS ═══════════════ */
-    .regions-section { padding: 56px 24px; background: var(--bg2); text-align: center; }
-    .regions-chips { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 24px; }
-    .region-chip { background: var(--bg3); border: 2px solid var(--gold); border-radius: 12px; padding: 18px 30px; font-size: 1rem; font-weight: 700; }
-    .region-chip span { display: block; color: var(--muted); font-size: .78rem; font-weight: 400; margin-top: 3px; }
-
-    /* ═══════════════ BOTTOM FORM ═══════════════ */
-    .bottom-form { padding: 72px 24px; text-align: center; }
-    .bottom-form .s-title { margin-bottom: 8px; }
-    .bottom-form .s-sub { margin-bottom: 32px; }
-    .bottom-form-box {
-      max-width: 500px; margin: 0 auto;
-      background: var(--bg2); border: 1px solid var(--border);
-      border-top: 3px solid var(--gold); border-radius: 12px; padding: 32px 28px;
-    }
-
-    /* ═══════════════ FOOTER ═══════════════ */
-    footer { background: #060e1b; padding: 32px 24px; text-align: center; color: var(--muted); font-size: .83rem; }
-    .foot-logo { font-size: 1.4rem; font-weight: 900; color: var(--gold); margin-bottom: 8px; }
-    footer a { color: var(--gold); text-decoration: none; }
-
-    /* ═══════════════ MODAL ═══════════════ */
-    .modal-bg { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.75); z-index: 999; align-items: center; justify-content: center; }
-    .modal-bg.show { display: flex; }
-    .modal-box {
-      background: var(--bg2); border: 1px solid var(--gold); border-radius: 16px;
-      padding: 44px 32px; max-width: 400px; width: 90%; text-align: center; position: relative;
-    }
-    .modal-box .mx { position: absolute; top: 14px; right: 18px; font-size: 1.4rem; cursor: pointer; color: var(--muted); }
-    .modal-box .mi { font-size: 3rem; margin-bottom: 12px; }
-    .modal-box h2 { font-size: 1.4rem; font-weight: 800; margin-bottom: 8px; }
-    .modal-box p { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
-
-    /* ═══════════════ RESPONSIVE ═══════════════ */
-    @media (max-width: 760px) {
-      .hero-inner { grid-template-columns: 1fr; }
-      .hero-form { margin-top: 0; }
-      .mid-form-grid { grid-template-columns: 1fr; }
-      .hdr-messengers { display: none; }
-      .hero-badge { gap: 18px; }
-    }
-    /* Уменьшенный телефон в мобильном хедере */
-    @media (max-width: 520px) {
-      .hdr-phone { font-size: .88rem; font-weight: 700; }
-      .logo { font-size: 1.3rem; }
-      .lang-btn { font-size: .68rem; padding: 3px 7px; }
-    }
-    @media (max-width: 380px) {
-      .hdr-phone { font-size: .78rem; }
-      .header { padding: 0 12px; gap: 8px; }
-      .logo { font-size: 1.15rem; }
-    }
-    /* На мобильных плавающие мессенджеры — чуть меньше */
-    @media (max-width: 520px) {
-      .fm-item { width: 44px; height: 44px; border-radius: 8px 0 0 8px; }
-      .fm-icon { font-size: 1.2rem; }
-      .fm-item:hover { width: 120px; }
-    }
-  </style>
+/* ── RESPONSIVE ── */
+@media(max-width:760px){
+  .hero-inner{grid-template-columns:1fr}
+  .hero-form{margin-top:0}
+  .mid-form-grid{grid-template-columns:1fr}
+  .hdr-msg{display:none}
+  .hero-badge{gap:18px}
+}
+@media(max-width:520px){
+  .hdr-phone{font-size:.9rem;font-weight:700}
+  .logo{font-size:1.3rem}
+  .fm-btn{width:44px;height:44px}
+  .fm-btn:hover{width:130px}
+}
+@media(max-width:380px){
+  .hdr-phone{font-size:.8rem}
+  .header{padding:0 12px}
+  .logo{font-size:1.15rem}
+}
+</style>
 </head>
 <body>
 
-<!-- ── FLOATING MESSENGERS (right) ── -->
+<!-- FLOATING MESSENGERS -->
 <div class="float-msg">
-  <a href="viber://chat?number=%2B380981344096" class="fm-item fm-viber" title="Viber">
-    <span class="fm-icon">📱</span><span class="fm-label">Viber</span>
+  <a href="viber://chat?number=%2B380981344096" class="fm-btn fm-vi" title="Viber">
+    <span class="fm-lbl">Viber</span><span class="fm-icon">📱</span>
   </a>
-  <a href="https://t.me/+380981344096" class="fm-item fm-tg" title="Telegram">
-    <span class="fm-icon">✈️</span><span class="fm-label">Telegram</span>
+  <a href="https://t.me/+380981344096" class="fm-btn fm-tg" title="Telegram">
+    <span class="fm-lbl">Telegram</span><span class="fm-icon">✈️</span>
   </a>
-  <a href="https://wa.me/380981344096" class="fm-item fm-wa" title="WhatsApp">
-    <span class="fm-icon">💬</span><span class="fm-label">WhatsApp</span>
+  <a href="https://wa.me/380981344096" class="fm-btn fm-wa" title="WhatsApp">
+    <span class="fm-lbl">WhatsApp</span><span class="fm-icon">💬</span>
   </a>
 </div>
 
-<!-- ── HEADER ── -->
+<!-- HEADER -->
 <header class="header">
   <a class="logo" href="#">Авто<em>Здай</em></a>
-  <!-- Lang switcher -->
   <div class="lang-sw">
     <button class="lang-btn active" data-lang="uk" onclick="setLang('uk')">UA</button>
     <button class="lang-btn" data-lang="ru" onclick="setLang('ru')">RU</button>
   </div>
   <div class="hdr-right">
-    <div class="hdr-phone-block">
-      <a class="hdr-phone" href="tel:+380981344096">+38 (098) 134-40-96</a>
-      <div class="hdr-messengers">
-        <a href="viber://chat?number=%2B380981344096">📱 Viber</a>
-        <a href="https://t.me/+380981344096">✈️ Telegram</a>
-        <a href="https://wa.me/380981344096">💬 WhatsApp</a>
-      </div>
+    <a class="hdr-phone" href="tel:+380981344096">+38 (098) 134-40-96</a>
+    <div class="hdr-msg">
+      <a href="viber://chat?number=%2B380981344096">📱 Viber</a>
+      <a href="https://t.me/+380981344096">✈️ Telegram</a>
+      <a href="https://wa.me/380981344096">💬 WhatsApp</a>
     </div>
   </div>
 </header>
 
-<!-- ── TICKER ── -->
+<!-- TICKER -->
 <div class="ticker-block">
-  <div class="ticker-row1">
-    <div class="ticker-move" id="ticker1">
-      &nbsp;&nbsp;&nbsp;⚡ ДОВОЄННА ВАРТІСТЬ І БЕЗ ОБМАНУ &nbsp;/&nbsp; ДОВОЄННА ВАРТІСТЬ І БЕЗ ОБМАНУ &nbsp;/&nbsp; ДОВОЄННА ВАРТІСТЬ І БЕЗ ОБМАНУ &nbsp;/&nbsp; ДОВОЄННА ВАРТІСТЬ І БЕЗ ОБМАНУ &nbsp;/&nbsp; ДОВОЄННА ВАРТІСТЬ І БЕЗ ОБМАНУ &nbsp;/&nbsp; ДОВОЄННА ВАРТІСТЬ І БЕЗ ОБМАНУ &nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚡ ДОВОЄННА ВАРТІСТЬ І БЕЗ ОБМАНУ &nbsp;/&nbsp; ДОВОЄННА ВАРТІСТЬ І БЕЗ ОБМАНУ &nbsp;/&nbsp; ДОВОЄННА ВАРТІСТЬ І БЕЗ ОБМАНУ &nbsp;/&nbsp; ДОВОЄННА ВАРТІСТЬ І БЕЗ ОБМАНУ &nbsp;/&nbsp; ДОВОЄННА ВАРТІСТЬ І БЕЗ ОБМАНУ &nbsp;/&nbsp; ДОВОЄННА ВАРТІСТЬ І БЕЗ ОБМАНУ &nbsp;/&nbsp;
+  <div class="tick1">
+    <div class="ticker-move">
+      &nbsp;&nbsp;⚡ <span class="ua">ДОВОЄННА ВАРТІСТЬ І БЕЗ ОБМАНУ</span><span class="ru">ДОВОЕННАЯ СТОИМОСТЬ И БЕЗ ОБМАНА</span> &nbsp;/&nbsp; <span class="ua">ДОВОЄННА ВАРТІСТЬ І БЕЗ ОБМАНУ</span><span class="ru">ДОВОЕННАЯ СТОИМОСТЬ И БЕЗ ОБМАНА</span> &nbsp;/&nbsp; <span class="ua">ДОВОЄННА ВАРТІСТЬ І БЕЗ ОБМАНУ</span><span class="ru">ДОВОЕННАЯ СТОИМОСТЬ И БЕЗ ОБМАНА</span> &nbsp;/&nbsp; <span class="ua">ДОВОЄННА ВАРТІСТЬ І БЕЗ ОБМАНУ</span><span class="ru">ДОВОЕННАЯ СТОИМОСТЬ И БЕЗ ОБМАНА</span> &nbsp;/&nbsp; <span class="ua">ДОВОЄННА ВАРТІСТЬ І БЕЗ ОБМАНУ</span><span class="ru">ДОВОЕННАЯ СТОИМОСТЬ И БЕЗ ОБМАНА</span> &nbsp;&nbsp;⚡ <span class="ua">ДОВОЄННА ВАРТІСТЬ І БЕЗ ОБМАНУ</span><span class="ru">ДОВОЕННАЯ СТОИМОСТЬ И БЕЗ ОБМАНА</span> &nbsp;/&nbsp; <span class="ua">ДОВОЄННА ВАРТІСТЬ І БЕЗ ОБМАНУ</span><span class="ru">ДОВОЕННАЯ СТОИМОСТЬ И БЕЗ ОБМАНА</span> &nbsp;/&nbsp; <span class="ua">ДОВОЄННА ВАРТІСТЬ І БЕЗ ОБМАНУ</span><span class="ru">ДОВОЕННАЯ СТОИМОСТЬ И БЕЗ ОБМАНА</span> &nbsp;/&nbsp; <span class="ua">ДОВОЄННА ВАРТІСТЬ І БЕЗ ОБМАНУ</span><span class="ru">ДОВОЕННАЯ СТОИМОСТЬ И БЕЗ ОБМАНА</span> &nbsp;/&nbsp; <span class="ua">ДОВОЄННА ВАРТІСТЬ І БЕЗ ОБМАНУ</span><span class="ru">ДОВОЕННАЯ СТОИМОСТЬ И БЕЗ ОБМАНА</span> &nbsp;
     </div>
   </div>
-  <div class="ticker-row2">
-    <div class="ticker-move" id="ticker2">
-      &nbsp;&nbsp;&nbsp;🛡️ ПРАЦЮЄМО В ВОЄННИЙ ЧАС &nbsp;/&nbsp; ПРАЦЮЄМО В ВОЄННИЙ ЧАС &nbsp;/&nbsp; ПРАЦЮЄМО В ВОЄННИЙ ЧАС &nbsp;/&nbsp; ПРАЦЮЄМО В ВОЄННИЙ ЧАС &nbsp;/&nbsp; ПРАЦЮЄМО В ВОЄННИЙ ЧАС &nbsp;/&nbsp; ПРАЦЮЄМО В ВОЄННИЙ ЧАС &nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🛡️ ПРАЦЮЄМО В ВОЄННИЙ ЧАС &nbsp;/&nbsp; ПРАЦЮЄМО В ВОЄННИЙ ЧАС &nbsp;/&nbsp; ПРАЦЮЄМО В ВОЄННИЙ ЧАС &nbsp;/&nbsp; ПРАЦЮЄМО В ВОЄННИЙ ЧАС &nbsp;/&nbsp; ПРАЦЮЄМО В ВОЄННИЙ ЧАС &nbsp;/&nbsp; ПРАЦЮЄМО В ВОЄННИЙ ЧАС &nbsp;/&nbsp;
+  <div class="tick2">
+    <div class="ticker-move">
+      &nbsp;&nbsp;🛡️ <span class="ua">ПРАЦЮЄМО В ВОЄННИЙ ЧАС</span><span class="ru">РАБОТАЕМ В ВОЕННОЕ ВРЕМЯ</span> &nbsp;/&nbsp; <span class="ua">ПРАЦЮЄМО В ВОЄННИЙ ЧАС</span><span class="ru">РАБОТАЕМ В ВОЕННОЕ ВРЕМЯ</span> &nbsp;/&nbsp; <span class="ua">ПРАЦЮЄМО В ВОЄННИЙ ЧАС</span><span class="ru">РАБОТАЕМ В ВОЕННОЕ ВРЕМЯ</span> &nbsp;/&nbsp; <span class="ua">ПРАЦЮЄМО В ВОЄННИЙ ЧАС</span><span class="ru">РАБОТАЕМ В ВОЕННОЕ ВРЕМЯ</span> &nbsp;/&nbsp; <span class="ua">ПРАЦЮЄМО В ВОЄННИЙ ЧАС</span><span class="ru">РАБОТАЕМ В ВОЕННОЕ ВРЕМЯ</span> &nbsp;&nbsp;🛡️ <span class="ua">ПРАЦЮЄМО В ВОЄННИЙ ЧАС</span><span class="ru">РАБОТАЕМ В ВОЕННОЕ ВРЕМЯ</span> &nbsp;/&nbsp; <span class="ua">ПРАЦЮЄМО В ВОЄННИЙ ЧАС</span><span class="ru">РАБОТАЕМ В ВОЕННОЕ ВРЕМЯ</span> &nbsp;/&nbsp; <span class="ua">ПРАЦЮЄМО В ВОЄННИЙ ЧАС</span><span class="ru">РАБОТАЕМ В ВОЕННОЕ ВРЕМЯ</span> &nbsp;/&nbsp; <span class="ua">ПРАЦЮЄМО В ВОЄННИЙ ЧАС</span><span class="ru">РАБОТАЕМ В ВОЕННОЕ ВРЕМЯ</span> &nbsp;/&nbsp; <span class="ua">ПРАЦЮЄМО В ВОЄННИЙ ЧАС</span><span class="ru">РАБОТАЕМ В ВОЕННОЕ ВРЕМЯ</span> &nbsp;
     </div>
   </div>
 </div>
 
-<!-- ── HERO ── -->
+<!-- HERO -->
 <section class="hero">
   <div class="hero-inner">
     <div class="hero-left">
-      <h1 data-i18n="h1">Викуп авто<br><span class="hl">за 2 години</span></h1>
-      <p class="hero-sub" data-i18n="heroSub">Купуємо ваше авто в будь-якому стані — швидко, чесно, за реальною ціною</p>
+      <h1>
+        <span class="ua">Викуп авто<br><span class="hl">за 2 години</span></span>
+        <span class="ru">Выкуп авто<br><span class="hl">за 2 часа</span></span>
+      </h1>
+      <p class="hero-sub">
+        <span class="ua">Купуємо ваше авто в будь-якому стані — швидко, чесно, за реальною ціною</span>
+        <span class="ru">Купим ваш автомобиль в любом состоянии — быстро, честно, по реальной цене</span>
+      </p>
       <div class="hero-region">
-        <span class="tag" data-i18n="tag1">📍 Дніпро</span>
-        <span class="tag" data-i18n="tag2">📍 Запоріжжя</span>
-        <span class="tag" data-i18n="tag3">📍 Донецька область</span>
+        <span class="tag"><span class="ua">📍 Дніпро</span><span class="ru">📍 Дніпро</span></span>
+        <span class="tag"><span class="ua">📍 Запоріжжя</span><span class="ru">📍 Запоріжжя</span></span>
+        <span class="tag"><span class="ua">📍 Донецька область</span><span class="ru">📍 Донецьк. обл.</span></span>
       </div>
       <div class="hero-badge">
-        <div class="badge-item">
-          <div class="badge-num" data-i18n="badge1num">95%</div>
-          <div class="badge-txt" data-i18n="badge1txt">від ринкової вартості</div>
-        </div>
-        <div class="badge-item">
-          <div class="badge-num" data-i18n="badge2num">2год</div>
-          <div class="badge-txt" data-i18n="badge2txt">повний цикл угоди</div>
-        </div>
-        <div class="badge-item">
-          <div class="badge-num" data-i18n="badge3num">16р</div>
-          <div class="badge-txt" data-i18n="badge3txt">на ринку з 2010</div>
-        </div>
+        <div><div class="badge-num">95%</div><div class="badge-txt"><span class="ua">від ринкової вартості</span><span class="ru">от рыночной стоимости</span></div></div>
+        <div><div class="badge-num">2<span class="ua">год</span><span class="ru">ч</span></div><div class="badge-txt"><span class="ua">повний цикл угоди</span><span class="ru">полный цикл сделки</span></div></div>
+        <div><div class="badge-num">16<span class="ua">р</span><span class="ru">л</span></div><div class="badge-txt"><span class="ua">на ринку з 2010</span><span class="ru">на рынке с 2010</span></div></div>
       </div>
     </div>
-
     <div class="hero-form">
-      <h2 data-i18n="formTitle">Дізнайтесь вартість авто</h2>
-      <p data-i18n="formSub">Безкоштовна оцінка за 5 хвилин</p>
+      <h2><span class="ua">Дізнайтесь вартість авто</span><span class="ru">Узнайте стоимость авто</span></h2>
+      <p><span class="ua">Безкоштовна оцінка за 5 хвилин</span><span class="ru">Бесплатная оценка за 5 минут</span></p>
       <form onsubmit="submitForm(event)">
         <div class="f-field">
-          <label data-i18n="lPhone">Ваш телефон</label>
-          <input type="tel" id="ph1" placeholder="+380 XX XXX XX XX" required>
+          <label><span class="ua">Ваш телефон</span><span class="ru">Ваш телефон</span></label>
+          <input type="tel" placeholder="+380 XX XXX XX XX" required>
         </div>
         <div class="f-field">
-          <label data-i18n="lCond">Стан авто</label>
-          <select required id="sel-cond-1">
-            <option value="" data-i18n="optCondDef">— Оберіть стан —</option>
-            <option data-i18n="optCond1">Відмінний (без ушкоджень)</option>
-            <option data-i18n="optCond2">Хороший (дрібні дефекти)</option>
-            <option data-i18n="optCond3">Після ДТП</option>
-            <option data-i18n="optCond4">Потребує ремонту</option>
-            <option data-i18n="optCond5">Не на ходу</option>
-            <option data-i18n="optCond6">Після пожежі / затоплення</option>
+          <label><span class="ua">Стан авто</span><span class="ru">Состояние авто</span></label>
+          <select required class="sel-cond">
+            <option value=""><span class="ua">— Оберіть стан —</span></option>
           </select>
         </div>
         <div class="f-field">
-          <label data-i18n="lYear">Рік авто</label>
+          <label><span class="ua">Рік авто</span><span class="ru">Год авто</span></label>
           <select required>
-            <option value="" data-i18n="optYearDef">— Рік випуску —</option>
+            <option value="">—</option>
             <option>2023–2024</option><option>2020–2022</option><option>2017–2019</option>
-            <option>2014–2016</option><option>2010–2013</option><option>2005–2009</option><option data-i18n="optBefore">До 2005</option>
+            <option>2014–2016</option><option>2010–2013</option><option>2005–2009</option><option>До 2005</option>
           </select>
         </div>
-        <button type="submit" class="btn-gold" data-i18n="btnEval">⚡ Отримати безкоштовну оцінку</button>
+        <button type="submit" class="btn-gold">
+          ⚡ <span class="ua">Отримати безкоштовну оцінку</span><span class="ru">Получить бесплатную оценку</span>
+        </button>
       </form>
-      <p class="f-note" data-i18n="fNote">🔒 Передзвонимо протягом 5 хвилин</p>
+      <p class="f-note">🔒 <span class="ua">Передзвонимо протягом 5 хвилин</span><span class="ru">Перезвоним в течение 5 минут</span></p>
     </div>
   </div>
 </section>
 
-<!-- ── WHAT WE BUY ── -->
+<!-- WHAT WE BUY -->
 <section class="section dark">
   <div class="wrap">
-    <h2 class="s-title" data-i18n="buyTitle">Швидко викупимо ваше авто</h2>
-    <p class="s-sub" data-i18n="buySub">в будь-якому стані</p>
+    <h2 class="s-title"><span class="ua">Швидко викупимо ваше авто</span><span class="ru">Быстро выкупим ваш автомобиль</span></h2>
+    <p class="s-sub"><span class="ua">в будь-якому стані</span><span class="ru">в любом состоянии</span></p>
     <div class="cond-grid">
-      <div class="cond-card"><span class="ci">💥</span><p data-i18n="cond1">Після ДТП</p></div>
-      <div class="cond-card"><span class="ci">🏦</span><p data-i18n="cond2">Кредитне</p></div>
-      <div class="cond-card"><span class="ci">💧</span><p data-i18n="cond3">Затоплене</p></div>
-      <div class="cond-card"><span class="ci">🔥</span><p data-i18n="cond4">Після пожежі</p></div>
-      <div class="cond-card"><span class="ci">🔧</span><p data-i18n="cond5">Проблемне</p></div>
-      <div class="cond-card"><span class="ci">🇺🇦</span><p data-i18n="cond6">Вітчизняне</p></div>
-      <div class="cond-card"><span class="ci">🌍</span><p data-i18n="cond7">Нерозмитнене</p></div>
-      <div class="cond-card"><span class="ci">📄</span><p data-i18n="cond8">З проблем. документами</p></div>
+      <div class="cond-card"><span class="ci">💥</span><p><span class="ua">Після ДТП</span><span class="ru">После ДТП</span></p></div>
+      <div class="cond-card"><span class="ci">🏦</span><p><span class="ua">Кредитне</span><span class="ru">Кредитный</span></p></div>
+      <div class="cond-card"><span class="ci">💧</span><p><span class="ua">Затоплене</span><span class="ru">Затопленный</span></p></div>
+      <div class="cond-card"><span class="ci">🔥</span><p><span class="ua">Після пожежі</span><span class="ru">После пожара</span></p></div>
+      <div class="cond-card"><span class="ci">🔧</span><p><span class="ua">Проблемне</span><span class="ru">Проблемный</span></p></div>
+      <div class="cond-card"><span class="ci">🇺🇦</span><p><span class="ua">Вітчизняне</span><span class="ru">Отечественный</span></p></div>
+      <div class="cond-card"><span class="ci">🌍</span><p><span class="ua">Нерозмитнене</span><span class="ru">Нерастаможенный</span></p></div>
+      <div class="cond-card"><span class="ci">📄</span><p><span class="ua">З проблем. документами</span><span class="ru">С проблем. документами</span></p></div>
     </div>
   </div>
 </section>
 
-<!-- ── BENEFITS ── -->
+<!-- BENEFITS -->
 <section class="section">
   <div class="wrap">
     <div class="benefits-top">
-      <small data-i18n="benefSince">✦ працюємо з 2010 року ✦</small>
-      <h2 class="s-title" style="margin-top:8px;" data-i18n="benefTitle">У нас <span class="hl">найкращі умови</span></h2>
+      <small>✦ <span class="ua">працюємо з 2010 року</span><span class="ru">работаем с 2010 года</span> ✦</small>
+      <h2 class="s-title" style="margin-top:8px;"><span class="ua">У нас <span class="hl">найкращі умови</span></span><span class="ru">У нас <span class="hl">лучшие условия</span></span></h2>
     </div>
     <div class="benefits-grid">
       <div class="benefit-card">
         <span class="bi">💰</span>
-        <div class="bnum" data-i18n="bNum1">до 95%</div>
-        <h3 data-i18n="bTit1">від ринкової вартості</h3>
-        <p data-i18n="bTxt1">Платимо максимально. Жодного зниження ціни в останню мить — тільки чесна угода.</p>
+        <div class="bnum"><span class="ua">до 95%</span><span class="ru">до 95%</span></div>
+        <h3><span class="ua">від ринкової вартості</span><span class="ru">от рыночной стоимости</span></h3>
+        <p><span class="ua">Платимо максимально. Жодного зниження ціни в останню мить — тільки чесна угода.</span><span class="ru">Платим максимально. Никакого снижения цены в последний момент — только честная сделка.</span></p>
       </div>
       <div class="benefit-card">
         <span class="bi">🔍</span>
-        <div class="bnum" data-i18n="bNum2">5 хвилин</div>
-        <h3 data-i18n="bTit2">безкоштовна оцінка</h3>
-        <p data-i18n="bTxt2">Оцінимо ваше авто по телефону безкоштовно і без зобов'язань з вашого боку.</p>
+        <div class="bnum">5 <span class="ua">хвилин</span><span class="ru">минут</span></div>
+        <h3><span class="ua">безкоштовна оцінка</span><span class="ru">бесплатная оценка</span></h3>
+        <p><span class="ua">Оцінимо ваше авто по телефону безкоштовно і без зобов'язань.</span><span class="ru">Оценим автомобиль по телефону бесплатно и без обязательств.</span></p>
       </div>
       <div class="benefit-card">
         <span class="bi">💵</span>
-        <div class="bnum" data-i18n="bNum3">одразу</div>
-        <h3 data-i18n="bTit3">гроші після угоди</h3>
-        <p data-i18n="bTxt3">Повна сума готівкою або на картку в день підписання — жодних очікувань.</p>
+        <div class="bnum"><span class="ua">одразу</span><span class="ru">сразу</span></div>
+        <h3><span class="ua">гроші після угоди</span><span class="ru">деньги после сделки</span></h3>
+        <p><span class="ua">Повна сума готівкою або на картку в день підписання — жодних очікувань.</span><span class="ru">Полная сумма наличными или на карту в день подписания — никакого ожидания.</span></p>
       </div>
       <div class="benefit-card">
         <span class="bi">⏱️</span>
-        <div class="bnum" data-i18n="bNum4">2 години</div>
-        <h3 data-i18n="bTit4">цикл угоди</h3>
-        <p data-i18n="bTxt4">Від першого дзвінка до грошей у вас в руках — не більше двох годин.</p>
+        <div class="bnum">2 <span class="ua">години</span><span class="ru">часа</span></div>
+        <h3><span class="ua">цикл угоди</span><span class="ru">цикл сделки</span></h3>
+        <p><span class="ua">Від першого дзвінка до грошей у вас в руках — не більше двох годин.</span><span class="ru">От первого звонка до денег в ваших руках — не более двух часов.</span></p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── MID FORM ── -->
+<!-- MID FORM -->
 <section class="mid-form-section">
   <div class="mid-form-inner">
-    <h2 class="s-title" data-i18n="midTitle">Розрахуйте вартість авто</h2>
-    <p class="s-sub" data-i18n="midSub">безкоштовно за 30 секунд</p>
+    <h2 class="s-title"><span class="ua">Розрахуйте вартість авто</span><span class="ru">Рассчитайте стоимость авто</span></h2>
+    <p class="s-sub"><span class="ua">безкоштовно за 30 секунд</span><span class="ru">бесплатно за 30 секунд</span></p>
     <form onsubmit="submitForm(event)">
       <div class="mid-form-grid">
         <div class="f-field">
-          <label data-i18n="lYear">Рік випуску авто</label>
+          <label><span class="ua">Рік випуску</span><span class="ru">Год выпуска</span></label>
           <select required>
-            <option value="" data-i18n="optYearDef">— Рік випуску —</option>
+            <option value="">—</option>
             <option>2023–2024</option><option>2020–2022</option><option>2017–2019</option>
-            <option>2014–2016</option><option>2010–2013</option><option data-i18n="optBefore">До 2010</option>
+            <option>2014–2016</option><option>2010–2013</option><option>До 2010</option>
           </select>
         </div>
         <div class="f-field">
-          <label data-i18n="lCond">Стан автомобіля</label>
-          <select required>
-            <option value="" data-i18n="optCondDef">— Стан —</option>
-            <option data-i18n="optCond1">Відмінний (без ушкоджень)</option>
-            <option data-i18n="optCond2">Хороший (дрібні дефекти)</option>
-            <option data-i18n="optCond3">Після ДТП</option>
-            <option data-i18n="optCond4">Потребує ремонту</option>
-          </select>
+          <label><span class="ua">Стан автомобіля</span><span class="ru">Состояние авто</span></label>
+          <select required class="sel-cond"></select>
         </div>
         <div class="f-field">
-          <label data-i18n="lGear">Коробка передач</label>
-          <select>
-            <option value="" data-i18n="optGearDef">— Тип КПП —</option>
-            <option data-i18n="optGear1">Автомат</option>
-            <option data-i18n="optGear2">Механіка</option>
-            <option data-i18n="optGear3">Варіатор</option>
-            <option data-i18n="optGear4">Робот</option>
-          </select>
+          <label><span class="ua">Коробка передач</span><span class="ru">Коробка передач</span></label>
+          <select class="sel-gear"></select>
         </div>
         <div class="f-field f-full">
-          <label data-i18n="lPhone">Ваш телефон</label>
+          <label><span class="ua">Ваш телефон</span><span class="ru">Ваш телефон</span></label>
           <input type="tel" placeholder="+380 XX XXX XX XX" required>
         </div>
       </div>
-      <button type="submit" class="btn-gold" data-i18n="btnEval">⚡ Отримати безкоштовну оцінку</button>
+      <button type="submit" class="btn-gold">⚡ <span class="ua">Отримати безкоштовну оцінку</span><span class="ru">Получить бесплатную оценку</span></button>
     </form>
   </div>
 </section>
 
-<!-- ── LAST CARS ── -->
+<!-- CARS SLIDER -->
 <section class="section darker">
   <div class="wrap">
-    <h2 class="s-title" data-i18n="carsTitle">Останні викуплені авто</h2>
-    <p class="s-sub" data-i18n="carsSub">для нас не важливий стан вашого авто — викупимо будь-яке</p>
-    <div class="cars-slider-wrap">
-      <div class="cars-slider">
-        <!-- Cards × 2 for infinite loop -->
-        <div class="car-card">
-          <img src="https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=600&h=400&q=85" alt="Toyota Camry">
-          <div class="car-info"><div class="car-model">Toyota Camry</div><div class="car-year">2018 р.</div><div class="car-price">$11 200</div><div class="car-cond" data-i18n="carCond0">Відмінний стан</div></div>
-        </div>
-        <div class="car-card">
-          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=600&h=400&q=85" alt="Volkswagen Passat">
-          <div class="car-info"><div class="car-model">Volkswagen Passat</div><div class="car-year">2015 р.</div><div class="car-price">$7 400</div><div class="car-cond" data-i18n="carCond1">Після ДТП</div></div>
-        </div>
-        <div class="car-card">
-          <img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?auto=format&fit=crop&w=600&h=400&q=85" alt="Hyundai Tucson">
-          <div class="car-info"><div class="car-model">Hyundai Tucson</div><div class="car-year">2017 р.</div><div class="car-price">$9 800</div><div class="car-cond" data-i18n="carCond2">Хороший стан</div></div>
-        </div>
-        <div class="car-card">
-          <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=600&h=400&q=85" alt="Ford Focus">
-          <div class="car-info"><div class="car-model">Ford Focus</div><div class="car-year">2013 р.</div><div class="car-price">$4 600</div><div class="car-cond" data-i18n="carCond3">Кредитний</div></div>
-        </div>
-        <div class="car-card">
-          <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&h=400&q=85" alt="Kia Sportage">
-          <div class="car-info"><div class="car-model">Kia Sportage</div><div class="car-year">2019 р.</div><div class="car-price">$13 500</div><div class="car-cond" data-i18n="carCond0">Відмінний стан</div></div>
-        </div>
-        <div class="car-card">
-          <img src="https://images.unsplash.com/photo-1616455579100-2ceaa4eb2d37?auto=format&fit=crop&w=600&h=400&q=85" alt="Renault Megane">
-          <div class="car-info"><div class="car-model">Renault Megane</div><div class="car-year">2016 р.</div><div class="car-price">$5 900</div><div class="car-cond" data-i18n="carCond4">Потребує ремонту</div></div>
-        </div>
-        <div class="car-card">
-          <img src="https://images.unsplash.com/photo-1555353540-64580b51c258?auto=format&fit=crop&w=600&h=400&q=85" alt="Skoda Octavia">
-          <div class="car-info"><div class="car-model">Skoda Octavia</div><div class="car-year">2014 р.</div><div class="car-price">$6 800</div><div class="car-cond" data-i18n="carCond2">Хороший стан</div></div>
-        </div>
-        <!-- duplicate for infinite loop -->
-        <div class="car-card">
-          <img src="https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=600&h=400&q=85" alt="Toyota Camry">
-          <div class="car-info"><div class="car-model">Toyota Camry</div><div class="car-year">2018 р.</div><div class="car-price">$11 200</div><div class="car-cond" data-i18n="carCond0">Відмінний стан</div></div>
-        </div>
-        <div class="car-card">
-          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=600&h=400&q=85" alt="Volkswagen Passat">
-          <div class="car-info"><div class="car-model">Volkswagen Passat</div><div class="car-year">2015 р.</div><div class="car-price">$7 400</div><div class="car-cond" data-i18n="carCond1">Після ДТП</div></div>
-        </div>
-        <div class="car-card">
-          <img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?auto=format&fit=crop&w=600&h=400&q=85" alt="Hyundai Tucson">
-          <div class="car-info"><div class="car-model">Hyundai Tucson</div><div class="car-year">2017 р.</div><div class="car-price">$9 800</div><div class="car-cond" data-i18n="carCond2">Хороший стан</div></div>
-        </div>
-        <div class="car-card">
-          <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=600&h=400&q=85" alt="Ford Focus">
-          <div class="car-info"><div class="car-model">Ford Focus</div><div class="car-year">2013 р.</div><div class="car-price">$4 600</div><div class="car-cond" data-i18n="carCond3">Кредитний</div></div>
-        </div>
-        <div class="car-card">
-          <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&h=400&q=85" alt="Kia Sportage">
-          <div class="car-info"><div class="car-model">Kia Sportage</div><div class="car-year">2019 р.</div><div class="car-price">$13 500</div><div class="car-cond" data-i18n="carCond0">Відмінний стан</div></div>
-        </div>
-        <div class="car-card">
-          <img src="https://images.unsplash.com/photo-1616455579100-2ceaa4eb2d37?auto=format&fit=crop&w=600&h=400&q=85" alt="Renault Megane">
-          <div class="car-info"><div class="car-model">Renault Megane</div><div class="car-year">2016 р.</div><div class="car-price">$5 900</div><div class="car-cond" data-i18n="carCond4">Потребує ремонту</div></div>
-        </div>
-        <div class="car-card">
-          <img src="https://images.unsplash.com/photo-1555353540-64580b51c258?auto=format&fit=crop&w=600&h=400&q=85" alt="Skoda Octavia">
-          <div class="car-info"><div class="car-model">Skoda Octavia</div><div class="car-year">2014 р.</div><div class="car-price">$6 800</div><div class="car-cond" data-i18n="carCond2">Хороший стан</div></div>
-        </div>
-      </div>
-    </div>
+    <h2 class="s-title"><span class="ua">Останні викуплені авто</span><span class="ru">Последние выкупленные авто</span></h2>
+    <p class="s-sub"><span class="ua">для нас не важливий стан — викупимо будь-яке</span><span class="ru">состояние не важно — выкупим любой</span></p>
+    <div class="cars-slider-wrap"><div class="cars-slider">
+      <div class="car-card"><img src="https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=600&h=400&q=85" alt="Toyota Camry"><div class="car-info"><div class="car-model">Toyota Camry</div><div class="car-year">2018</div><div class="car-price">$11 200</div><div class="car-cond"><span class="ua">Відмінний стан</span><span class="ru">Отличное</span></div></div></div>
+      <div class="car-card"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=600&h=400&q=85" alt="Volkswagen Passat"><div class="car-info"><div class="car-model">Volkswagen Passat</div><div class="car-year">2015</div><div class="car-price">$7 400</div><div class="car-cond"><span class="ua">Після ДТП</span><span class="ru">После ДТП</span></div></div></div>
+      <div class="car-card"><img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?auto=format&fit=crop&w=600&h=400&q=85" alt="Hyundai Tucson"><div class="car-info"><div class="car-model">Hyundai Tucson</div><div class="car-year">2017</div><div class="car-price">$9 800</div><div class="car-cond"><span class="ua">Хороший стан</span><span class="ru">Хорошее</span></div></div></div>
+      <div class="car-card"><img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=600&h=400&q=85" alt="Ford Focus"><div class="car-info"><div class="car-model">Ford Focus</div><div class="car-year">2013</div><div class="car-price">$4 600</div><div class="car-cond"><span class="ua">Кредитний</span><span class="ru">Кредитный</span></div></div></div>
+      <div class="car-card"><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&h=400&q=85" alt="Kia Sportage"><div class="car-info"><div class="car-model">Kia Sportage</div><div class="car-year">2019</div><div class="car-price">$13 500</div><div class="car-cond"><span class="ua">Відмінний стан</span><span class="ru">Отличное</span></div></div></div>
+      <div class="car-card"><img src="https://images.unsplash.com/photo-1616455579100-2ceaa4eb2d37?auto=format&fit=crop&w=600&h=400&q=85" alt="Renault Megane"><div class="car-info"><div class="car-model">Renault Megane</div><div class="car-year">2016</div><div class="car-price">$5 900</div><div class="car-cond"><span class="ua">Потребує ремонту</span><span class="ru">Требует ремонта</span></div></div></div>
+      <div class="car-card"><img src="https://images.unsplash.com/photo-1555353540-64580b51c258?auto=format&fit=crop&w=600&h=400&q=85" alt="Skoda Octavia"><div class="car-info"><div class="car-model">Skoda Octavia</div><div class="car-year">2014</div><div class="car-price">$6 800</div><div class="car-cond"><span class="ua">Хороший стан</span><span class="ru">Хорошее</span></div></div></div>
+      <!-- duplicate -->
+      <div class="car-card"><img src="https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=600&h=400&q=85" alt="Toyota Camry"><div class="car-info"><div class="car-model">Toyota Camry</div><div class="car-year">2018</div><div class="car-price">$11 200</div><div class="car-cond"><span class="ua">Відмінний стан</span><span class="ru">Отличное</span></div></div></div>
+      <div class="car-card"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=600&h=400&q=85" alt="Volkswagen Passat"><div class="car-info"><div class="car-model">Volkswagen Passat</div><div class="car-year">2015</div><div class="car-price">$7 400</div><div class="car-cond"><span class="ua">Після ДТП</span><span class="ru">После ДТП</span></div></div></div>
+      <div class="car-card"><img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?auto=format&fit=crop&w=600&h=400&q=85" alt="Hyundai Tucson"><div class="car-info"><div class="car-model">Hyundai Tucson</div><div class="car-year">2017</div><div class="car-price">$9 800</div><div class="car-cond"><span class="ua">Хороший стан</span><span class="ru">Хорошее</span></div></div></div>
+      <div class="car-card"><img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=600&h=400&q=85" alt="Ford Focus"><div class="car-info"><div class="car-model">Ford Focus</div><div class="car-year">2013</div><div class="car-price">$4 600</div><div class="car-cond"><span class="ua">Кредитний</span><span class="ru">Кредитный</span></div></div></div>
+      <div class="car-card"><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&h=400&q=85" alt="Kia Sportage"><div class="car-info"><div class="car-model">Kia Sportage</div><div class="car-year">2019</div><div class="car-price">$13 500</div><div class="car-cond"><span class="ua">Відмінний стан</span><span class="ru">Отличное</span></div></div></div>
+      <div class="car-card"><img src="https://images.unsplash.com/photo-1616455579100-2ceaa4eb2d37?auto=format&fit=crop&w=600&h=400&q=85" alt="Renault Megane"><div class="car-info"><div class="car-model">Renault Megane</div><div class="car-year">2016</div><div class="car-price">$5 900</div><div class="car-cond"><span class="ua">Потребує ремонту</span><span class="ru">Требует ремонта</span></div></div></div>
+      <div class="car-card"><img src="https://images.unsplash.com/photo-1555353540-64580b51c258?auto=format&fit=crop&w=600&h=400&q=85" alt="Skoda Octavia"><div class="car-info"><div class="car-model">Skoda Octavia</div><div class="car-year">2014</div><div class="car-price">$6 800</div><div class="car-cond"><span class="ua">Хороший стан</span><span class="ru">Хорошее</span></div></div></div>
+    </div></div>
   </div>
 </section>
 
-<!-- ── CALL US ── -->
+<!-- CALLUS -->
 <div class="callus">
   <div class="wrap">
-    <h2 data-i18n="callTitle">Зателефонуйте нам</h2>
-    <p data-i18n="callSub">або залиште заявку на сайті, щоб дізнатись вартість свого авто за 5 хвилин</p>
-    <div class="callus-buttons">
-      <a href="tel:+380981344096"                    class="btn-call b-phone">📞 +38 (098) 134-40-96</a>
-      <a href="viber://chat?number=%2B380981344096"  class="btn-call b-viber">📱 Viber</a>
-      <a href="https://t.me/+380981344096"           class="btn-call b-tg">✈️ Telegram</a>
-      <a href="https://wa.me/380981344096"           class="btn-call b-wa">💬 WhatsApp</a>
+    <h2><span class="ua">Зателефонуйте нам</span><span class="ru">Позвоните нам</span></h2>
+    <p><span class="ua">або залиште заявку на сайті, щоб дізнатись вартість свого авто за 5 хвилин</span><span class="ru">или оставьте заявку на сайте, чтобы узнать стоимость своего авто за 5 минут</span></p>
+    <div class="callus-btns">
+      <a href="tel:+380981344096" class="btn-call b-phone">📞 +38 (098) 134-40-96</a>
+      <a href="viber://chat?number=%2B380981344096" class="btn-call b-viber">📱 Viber</a>
+      <a href="https://t.me/+380981344096" class="btn-call b-tg">✈️ Telegram</a>
+      <a href="https://wa.me/380981344096" class="btn-call b-wa">💬 WhatsApp</a>
     </div>
   </div>
 </div>
 
-<!-- ── STATS ── -->
+<!-- STATS -->
 <div class="stats-bar">
   <div class="stats-grid">
-    <div><div class="stat-num">473+</div><div class="stat-lbl" data-i18n="stat1">викуплених авто за рік</div></div>
-    <div><div class="stat-num">738+</div><div class="stat-lbl" data-i18n="stat2">оглянутих авто за рік</div></div>
-    <div><div class="stat-num">до 95%</div><div class="stat-lbl" data-i18n="stat3">платимо від роздрібної вартості</div></div>
-    <div><div class="stat-num">2103+</div><div class="stat-lbl" data-i18n="stat4">прийнятих заявок за рік</div></div>
+    <div><div class="stat-num">473+</div><div class="stat-lbl"><span class="ua">викуплених авто за рік</span><span class="ru">выкупленных авто в год</span></div></div>
+    <div><div class="stat-num">738+</div><div class="stat-lbl"><span class="ua">оглянутих авто за рік</span><span class="ru">осмотренных авто в год</span></div></div>
+    <div><div class="stat-num">до 95%</div><div class="stat-lbl"><span class="ua">платимо від роздрібної вартості</span><span class="ru">платим от розничной стоимости</span></div></div>
+    <div><div class="stat-num">2103+</div><div class="stat-lbl"><span class="ua">прийнятих заявок за рік</span><span class="ru">принятых заявок в год</span></div></div>
   </div>
 </div>
 
-<!-- ── REVIEWS ── -->
+<!-- REVIEWS -->
 <section class="reviews-section">
   <div class="wrap">
-    <h2 class="s-title" data-i18n="revTitle">Відгуки про роботу з нами</h2>
-    <p class="s-sub" data-i18n="revSub">ми вдячні кожному, хто їх залишає</p>
+    <h2 class="s-title"><span class="ua">Відгуки про роботу з нами</span><span class="ru">Отзывы о нашей работе</span></h2>
+    <p class="s-sub"><span class="ua">ми вдячні кожному, хто їх залишає</span><span class="ru">мы благодарны каждому, кто их оставляет</span></p>
     <div class="reviews-grid">
       <div class="rev-card">
         <div class="rev-stars">★★★★★</div>
-        <p class="rev-text" data-i18n="rev1txt">Мав автомобіль з проблемами по кузову та техніці. Продавати на сайтах не хотів — це довго. Після попередньої оцінки по телефону приїхав співробітник, оглянули, домовились про ціну, угода відбулась. Всім дуже задоволений.</p>
-        <div class="rev-author">Максим, 44 роки</div>
-        <div class="rev-tag" data-i18n="rev1tag">Дніпро · проблеми з кузовом та технікою</div>
+        <p class="rev-text">
+          <span class="ua">Мав автомобіль з проблемами по кузову та техніці. Продавати на сайтах не хотів — це довго. Після попередньої оцінки по телефону приїхав співробітник, оглянули, домовились про ціну, угода відбулась. Всім дуже задоволений.</span>
+          <span class="ru">Был автомобиль с проблемами по кузову и технике. Продавать на сайтах не хотел — долго. После предварительной оценки по телефону приехал сотрудник, осмотрели, договорились о цене, сделка состоялась. Всем очень доволен.</span>
+        </p>
+        <div class="rev-author">Максим, 44</div>
+        <div class="rev-tag"><span class="ua">Дніпро · проблеми з кузовом</span><span class="ru">Днепр · проблемы с кузовом</span></div>
       </div>
       <div class="rev-card">
         <div class="rev-stars">★★★★★</div>
-        <p class="rev-text" data-i18n="rev2txt">Купив авто в кредит у 2011 році, виплатити не встиг, банк наклав арест. Знайшов «АвтоЗдай» в інтернеті. Ціна влаштувала, хоча юридично були великі проблеми по машині. Хлопцям дякую!</p>
-        <div class="rev-author">Володимир, 56 років</div>
-        <div class="rev-tag" data-i18n="rev2tag">Запоріжжя · арешт від банку</div>
+        <p class="rev-text">
+          <span class="ua">Купив авто в кредит у 2011 році, виплатити не встиг, банк наклав арест. Знайшов «АвтоЗдай» в інтернеті. Ціна влаштувала, хоча юридично були великі проблеми. Хлопцям дякую!</span>
+          <span class="ru">Купил авто в кредит в 2011 году, банк наложил арест. Нашёл «АвтоСдай» в интернете. Цена устроила, несмотря на юридические проблемы. Ребятам спасибо!</span>
+        </p>
+        <div class="rev-author">Володимир, 56</div>
+        <div class="rev-tag"><span class="ua">Запоріжжя · арешт від банку</span><span class="ru">Запорожье · арест от банка</span></div>
       </div>
       <div class="rev-card">
         <div class="rev-stars">★★★★★</div>
-        <p class="rev-text" data-i18n="rev3txt">Потрапив у ДТП. Відновлювати не було ні сил, ні грошей. Продав «як є» — ціну запропонували хорошу з урахуванням пошкоджень. Документи оформили за 3 години, потім розрахувались. Рекомендую!</p>
-        <div class="rev-author">Іван, 30 років</div>
-        <div class="rev-tag" data-i18n="rev3tag">Дніпро · авто після ДТП</div>
+        <p class="rev-text">
+          <span class="ua">Потрапив у ДТП. Відновлювати не було ні сил, ні грошей. Продав «як є» — ціну запропонували хорошу. Документи оформили за 3 години. Рекомендую!</span>
+          <span class="ru">Попал в ДТП. Восстанавливать не было сил и денег. Продал «как есть» — цену предложили хорошую. Документы оформили за 3 часа. Рекомендую!</span>
+        </p>
+        <div class="rev-author">Іван, 30</div>
+        <div class="rev-tag"><span class="ua">Дніпро · авто після ДТП</span><span class="ru">Днепр · авто после ДТП</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── BOTTOM FORM ── -->
-<section class="bottom-form">
-  <h2 class="s-title" data-i18n="botTitle">Дізнайтесь за <span class="hl">5 хвилин</span></h2>
-  <p class="s-sub" data-i18n="botSub">скільки ви отримаєте за своє авто</p>
-  <div class="bottom-form-box">
-    <form onsubmit="submitForm(event)">
-      <div class="f-field">
-        <label data-i18n="lPhone">Ваш телефон</label>
-        <input type="tel" placeholder="+380 XX XXX XX XX" required>
-      </div>
-      <div class="f-field">
-        <label data-i18n="lCond">Стан авто</label>
-        <select required>
-          <option value="" data-i18n="optCondDef">— Стан —</option>
-          <option data-i18n="optCond1Sh">Відмінний</option>
-          <option data-i18n="optCond2Sh">Хороший</option>
-          <option data-i18n="optCond3">Після ДТП</option>
-          <option data-i18n="optCond4Sh">На ремонт</option>
-          <option data-i18n="optCond5">Не на ходу</option>
-        </select>
-      </div>
-      <div class="f-field">
-        <label data-i18n="lYear">Рік авто</label>
-        <select required>
-          <option value="" data-i18n="optYearDef">— Рік випуску —</option>
-          <option>2023–2024</option><option>2020–2022</option><option>2017–2019</option>
-          <option>2014–2016</option><option>2010–2013</option><option data-i18n="optBefore2">До 2010</option>
-        </select>
-      </div>
-      <button type="submit" class="btn-gold" data-i18n="btnSend">Надіслати заявку →</button>
-    </form>
-  </div>
-</section>
-
-<!-- ── FAQ ── -->
-<section class="faq-section dark" style="background:var(--bg2);">
+<!-- FAQ -->
+<section class="faq-section">
   <div class="wrap">
-    <h2 class="s-title" data-i18n="faqTitle">Часті запитання</h2>
-    <p class="s-sub" data-i18n="faqSub">зібрали найпопулярніші питання і відповіли на них</p>
+    <h2 class="s-title"><span class="ua">Часті запитання</span><span class="ru">Частые вопросы</span></h2>
+    <p class="s-sub"><span class="ua">зібрали найпопулярніші питання і відповіли на них</span><span class="ru">собрали самые популярные вопросы и ответили на них</span></p>
     <div class="faq-wrap">
       <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq1q">Скільки ви платите за автомобіль?</span> <span class="arr">▼</span></div>
-        <div class="faq-a" data-i18n="faq1a">Платимо до 95% від роздрібної вартості вашого авто. Перед виплатою необхідно дізнатись початкові дані: рік, стан, марку — та оглянути автомобіль.</div>
+        <div class="faq-q" onclick="toggleFaq(this)"><span><span class="ua">Скільки ви платите за автомобіль?</span><span class="ru">Сколько вы платите за автомобиль?</span></span><span class="arr">▼</span></div>
+        <div class="faq-a"><span class="ua">Платимо до 95% від роздрібної вартості. Перед виплатою необхідно дізнатись рік, стан, марку та оглянути автомобіль.</span><span class="ru">Платим до 95% от розничной стоимости. Перед выплатой необходимо узнать год, состояние, марку и осмотреть автомобиль.</span></div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq2q">Як з вами зв'язатись?</span> <span class="arr">▼</span></div>
-        <div class="faq-a" data-i18n="faq2a">Телефонуйте за номером <a href="tel:+380981344096">+38 (098) 134-40-96</a>, пишіть у Viber або Telegram по тому ж номеру, або залишайте заявку на сайті — передзвонимо.</div>
+        <div class="faq-q" onclick="toggleFaq(this)"><span><span class="ua">Як з вами зв'язатись?</span><span class="ru">Как с вами связаться?</span></span><span class="arr">▼</span></div>
+        <div class="faq-a"><span class="ua">Телефонуйте <a href="tel:+380981344096">+38 (098) 134-40-96</a>, пишіть у Viber або Telegram по тому ж номеру, або залишайте заявку на сайті.</span><span class="ru">Звоните <a href="tel:+380981344096">+38 (098) 134-40-96</a>, пишите в Viber или Telegram по тому же номеру, или оставляйте заявку на сайте.</span></div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq3q">Які авто ви викупляєте?</span> <span class="arr">▼</span></div>
-        <div class="faq-a" data-i18n="faq3a">Абсолютно будь-які: нові, у хорошому стані, після ДТП, на запчастини, затоплені, іномарки, вітчизняні, з проблемними документами, під арештом, кредитні, нерозмитнені — будь-яке ваше авто.</div>
+        <div class="faq-q" onclick="toggleFaq(this)"><span><span class="ua">Які авто ви викупляєте?</span><span class="ru">Какие авто вы выкупаете?</span></span><span class="arr">▼</span></div>
+        <div class="faq-a"><span class="ua">Абсолютно будь-які: нові, після ДТП, затоплені, з проблемними документами, кредитні, нерозмитнені — будь-яке ваше авто.</span><span class="ru">Абсолютно любые: новые, после ДТП, затопленные, с проблемными документами, кредитные, нерастаможенные — любой ваш автомобиль.</span></div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq4q">Коли я отримаю гроші?</span> <span class="arr">▼</span></div>
-        <div class="faq-a" data-i18n="faq4a">Повну вартість виплачуємо в той самий день — після огляду авто та домовленості про ціну. На це потрібно близько 2 годин.</div>
+        <div class="faq-q" onclick="toggleFaq(this)"><span><span class="ua">Коли я отримаю гроші?</span><span class="ru">Когда я получу деньги?</span></span><span class="arr">▼</span></div>
+        <div class="faq-a"><span class="ua">Повну вартість виплачуємо в той самий день після огляду авто та домовленості про ціну. На це потрібно близько 2 годин.</span><span class="ru">Полную стоимость выплачиваем в тот же день после осмотра авто и договорённости о цене. На это нужно около 2 часов.</span></div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq5q">Чи потрібно везти авто до вас?</span> <span class="arr">▼</span></div>
-        <div class="faq-a" data-i18n="faq5a">Ні! Ми приїдемо до вас і оглянемо автомобіль після попереднього дзвінка. Будь-яке місце в межах Дніпра, Запоріжжя та Донецької області.</div>
+        <div class="faq-q" onclick="toggleFaq(this)"><span><span class="ua">Чи потрібно везти авто до вас?</span><span class="ru">Нужно ли везти авто к вам?</span></span><span class="arr">▼</span></div>
+        <div class="faq-a"><span class="ua">Ні! Ми приїдемо до вас і оглянемо автомобіль. Будь-яке місце в межах Дніпра, Запоріжжя та Донецької області.</span><span class="ru">Нет! Мы приедем к вам и осмотрим автомобиль. Любое место в пределах Днепра, Запорожья и Донецкой области.</span></div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq6q">Хто займається оформленням документів?</span> <span class="arr">▼</span></div>
-        <div class="faq-a" data-i18n="faq6a">Ми все зробимо за вас — швидко і якісно. Оформлення всіх документів беремо на себе.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq7q">В яких регіонах ви працюєте?</span> <span class="arr">▼</span></div>
-        <div class="faq-a" data-i18n="faq7a">Дніпро та Дніпропетровська область, Запоріжжя та Запорізька область, Донецька область (підконтрольна Україні). Також розглядаємо інші міста — уточнюйте по телефону.</div>
+        <div class="faq-q" onclick="toggleFaq(this)"><span><span class="ua">Хто займається оформленням документів?</span><span class="ru">Кто занимается оформлением документов?</span></span><span class="arr">▼</span></div>
+        <div class="faq-a"><span class="ua">Ми! Оформлення всіх документів беремо на себе — швидко і якісно.</span><span class="ru">Мы! Оформление всех документов берём на себя — быстро и качественно.</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── REGIONS ── -->
+<!-- REGIONS -->
 <section class="regions-section">
   <div class="wrap">
-    <h2 class="s-title" data-i18n="regTitle">Райони <span class="hl">роботи</span></h2>
+    <h2 class="s-title"><span class="ua">Райони <span class="hl">роботи</span></span><span class="ru">Районы <span class="hl">работы</span></span></h2>
     <div class="regions-chips">
-      <div class="region-chip"><span data-i18n="reg1">🏙️ Дніпро</span><span data-i18n="reg1sub">та Дніпропетровська область</span></div>
-      <div class="region-chip"><span data-i18n="reg2">🌊 Запоріжжя</span><span data-i18n="reg2sub">та Запорізька область</span></div>
-      <div class="region-chip"><span data-i18n="reg3">⚙️ Донецька область</span><span data-i18n="reg3sub">підконтрольна Україні</span></div>
+      <div class="region-chip">🏙️ <span class="ua">Дніпро<span>та Дніпропетровська область</span></span><span class="ru">Днепр<span>и Днепропетровская область</span></span></div>
+      <div class="region-chip">🌊 <span class="ua">Запоріжжя<span>та Запорізька область</span></span><span class="ru">Запорожье<span>и Запорожская область</span></span></div>
+      <div class="region-chip">⚙️ <span class="ua">Донецька область<span>підконтрольна Україні</span></span><span class="ru">Донецкая область<span>подконтрольная Украине</span></span></div>
     </div>
   </div>
 </section>
 
-<!-- ── FOOTER ── -->
+<!-- FOOTER -->
 <footer>
   <div class="foot-logo">АвтоЗдай</div>
-  <p data-i18n="footSub">Терміновий викуп авто · Дніпро · Запоріжжя · Донецька область</p>
-  <p style="margin-top:8px;">
-    <a href="tel:+380981344096">+380 98 134-40-96</a> &nbsp;·&nbsp;
-    <a href="viber://chat?number=%2B380981344096">Viber</a> &nbsp;·&nbsp;
-    <a href="https://t.me/+380981344096">Telegram</a> &nbsp;·&nbsp;
-    <a href="https://wa.me/380981344096">WhatsApp</a>
-  </p>
-  <p style="margin-top:16px; opacity:.4;">© 2025 АвтоЗдай. Всі права захищені.</p>
+  <p><span class="ua">Терміновий викуп авто · Дніпро · Запоріжжя · Донецька область</span><span class="ru">Срочный выкуп авто · Днепр · Запорожье · Донецкая область</span></p>
+  <p style="margin-top:8px"><a href="tel:+380981344096">+380 98 134-40-96</a> · <a href="viber://chat?number=%2B380981344096">Viber</a> · <a href="https://t.me/+380981344096">Telegram</a> · <a href="https://wa.me/380981344096">WhatsApp</a></p>
+  <p style="margin-top:16px;opacity:.4">© 2025 АвтоЗдай</p>
 </footer>
 
-<!-- ── MODAL ── -->
+<!-- MODAL -->
 <div class="modal-bg" id="modal">
   <div class="modal-box">
     <span class="mx" onclick="closeModal()">✕</span>
     <div class="mi">✅</div>
-    <h2 data-i18n="modalTitle">Заявку прийнято!</h2>
-    <p data-i18n="modalSub">Наш менеджер зателефонує вам протягом 5 хвилин. Дякуємо!</p>
-    <button class="btn-gold" onclick="closeModal()" data-i18n="btnClose">Закрити</button>
+    <h2><span class="ua">Заявку прийнято!</span><span class="ru">Заявка принята!</span></h2>
+    <p><span class="ua">Наш менеджер зателефонує вам протягом 5 хвилин. Дякуємо!</span><span class="ru">Наш менеджер позвонит вам в течение 5 минут. Спасибо!</span></p>
+    <button class="btn-gold" onclick="closeModal()"><span class="ua">Закрити</span><span class="ru">Закрыть</span></button>
   </div>
 </div>
 
 <script>
-  /* ─── TRANSLATIONS ─── */
-  const i18n = {
-    uk: {
-      pageTitle: 'АвтоЗдай — Терміновий викуп авто в Дніпрі, Запоріжжі, Донецькій обл.',
-      h1: 'Викуп авто<br><span class="hl">за 2 години</span>',
-      heroSub: 'Купуємо ваше авто в будь-якому стані — швидко, чесно, за реальною ціною',
-      tag1: '📍 Дніпро', tag2: '📍 Запоріжжя', tag3: '📍 Донецька область',
-      badge1num: '95%', badge1txt: 'від ринкової вартості',
-      badge2num: '2год', badge2txt: 'повний цикл угоди',
-      badge3num: '16р', badge3txt: 'на ринку з 2010',
-      formTitle: 'Дізнайтесь вартість авто', formSub: 'Безкоштовна оцінка за 5 хвилин',
-      lPhone: 'Ваш телефон', lCond: 'Стан авто', lYear: 'Рік авто',
-      lGear: 'Коробка передач',
-      optCondDef: '— Оберіть стан —',
-      optCond1: 'Відмінний (без ушкоджень)', optCond2: 'Хороший (дрібні дефекти)',
-      optCond3: 'Після ДТП', optCond4: 'Потребує ремонту', optCond5: 'Не на ходу',
-      optCond6: 'Після пожежі / затоплення',
-      optCond1Sh: 'Відмінний', optCond2Sh: 'Хороший', optCond4Sh: 'На ремонт',
-      optYearDef: '— Рік випуску —', optBefore: 'До 2005', optBefore2: 'До 2010',
-      optGearDef: '— Тип КПП —', optGear1: 'Автомат', optGear2: 'Механіка',
-      optGear3: 'Варіатор', optGear4: 'Робот',
-      btnEval: '⚡ Отримати безкоштовну оцінку',
-      fNote: '🔒 Передзвонимо протягом 5 хвилин',
-      buyTitle: 'Швидко викупимо ваше авто', buySub: 'в будь-якому стані',
-      cond1: 'Після ДТП', cond2: 'Кредитне', cond3: 'Затоплене', cond4: 'Після пожежі',
-      cond5: 'Проблемне', cond6: 'Вітчизняне', cond7: 'Нерозмитнене', cond8: 'З проблем. документами',
-      benefSince: '✦ працюємо з 2010 року ✦',
-      benefTitle: 'У нас <span class="hl">найкращі умови</span>',
-      bNum1: 'до 95%', bTit1: 'від ринкової вартості',
-      bTxt1: 'Платимо максимально. Жодного зниження ціни в останню мить — тільки чесна угода.',
-      bNum2: '5 хвилин', bTit2: 'безкоштовна оцінка',
-      bTxt2: "Оцінимо ваше авто по телефону безкоштовно і без зобов'язань з вашого боку.",
-      bNum3: 'одразу', bTit3: 'гроші після угоди',
-      bTxt3: 'Повна сума готівкою або на картку в день підписання — жодних очікувань.',
-      bNum4: '2 години', bTit4: 'цикл угоди',
-      bTxt4: 'Від першого дзвінка до грошей у вас в руках — не більше двох годин.',
-      midTitle: 'Розрахуйте вартість авто', midSub: 'безкоштовно за 30 секунд',
-      carsTitle: 'Останні викуплені авто',
-      carsSub: 'для нас не важливий стан вашого авто — викупимо будь-яке',
-      carCond0: 'Відмінний стан', carCond1: 'Після ДТП', carCond2: 'Хороший стан',
-      carCond3: 'Кредитний', carCond4: 'Потребує ремонту',
-      callTitle: 'Зателефонуйте нам',
-      callSub: 'або залиште заявку на сайті, щоб дізнатись вартість свого авто за 5 хвилин',
-      stat1: 'викуплених авто за рік', stat2: 'оглянутих авто за рік',
-      stat3: 'платимо від роздрібної вартості', stat4: 'прийнятих заявок за рік',
-      revTitle: 'Відгуки про роботу з нами', revSub: 'ми вдячні кожному, хто їх залишає',
-      rev1txt: 'Мав автомобіль з проблемами по кузову та техніці. Продавати на сайтах не хотів — це довго. Після попередньої оцінки по телефону приїхав співробітник, оглянули, домовились про ціну, угода відбулась. Всім дуже задоволений.',
-      rev1tag: 'Дніпро · проблеми з кузовом та технікою',
-      rev2txt: 'Купив авто в кредит у 2011 році, виплатити не встиг, банк наклав арест. Знайшов «АвтоЗдай» в інтернеті. Ціна влаштувала, хоча юридично були великі проблеми по машині. Хлопцям дякую!',
-      rev2tag: 'Запоріжжя · арешт від банку',
-      rev3txt: 'Потрапив у ДТП. Відновлювати не було ні сил, ні грошей. Продав «як є» — ціну запропонували хорошу з урахуванням пошкоджень. Документи оформили за 3 години, потім розрахувались. Рекомендую!',
-      rev3tag: 'Дніпро · авто після ДТП',
-      botTitle: 'Дізнайтесь за <span class="hl">5 хвилин</span>',
-      botSub: 'скільки ви отримаєте за своє авто',
-      btnSend: 'Надіслати заявку →',
-      faqTitle: 'Часті запитання',
-      faqSub: 'зібрали найпопулярніші питання і відповіли на них',
-      faq1q: 'Скільки ви платите за автомобіль?',
-      faq1a: 'Платимо до 95% від роздрібної вартості вашого авто. Перед виплатою необхідно дізнатись початкові дані: рік, стан, марку — та оглянути автомобіль.',
-      faq2q: "Як з вами зв'язатись?",
-      faq2a: 'Телефонуйте за номером <a href="tel:+380981344096">+38 (098) 134-40-96</a>, пишіть у Viber або Telegram по тому ж номеру, або залишайте заявку на сайті — передзвонимо.',
-      faq3q: 'Які авто ви викупляєте?',
-      faq3a: 'Абсолютно будь-які: нові, у хорошому стані, після ДТП, на запчастини, затоплені, іномарки, вітчизняні, з проблемними документами, під арештом, кредитні, нерозмитнені — будь-яке ваше авто.',
-      faq4q: 'Коли я отримаю гроші?',
-      faq4a: 'Повну вартість виплачуємо в той самий день — після огляду авто та домовленості про ціну. На це потрібно близько 2 годин.',
-      faq5q: 'Чи потрібно везти авто до вас?',
-      faq5a: 'Ні! Ми приїдемо до вас і оглянемо автомобіль після попереднього дзвінка. Будь-яке місце в межах Дніпра, Запоріжжя та Донецької області.',
-      faq6q: 'Хто займається оформленням документів?',
-      faq6a: 'Ми все зробимо за вас — швидко і якісно. Оформлення всіх документів беремо на себе.',
-      faq7q: 'В яких регіонах ви працюєте?',
-      faq7a: 'Дніпро та Дніпропетровська область, Запоріжжя та Запорізька область, Донецька область (підконтрольна Україні). Також розглядаємо інші міста — уточнюйте по телефону.',
-      regTitle: 'Райони <span class="hl">роботи</span>',
-      reg1: '🏙️ Дніпро', reg1sub: 'та Дніпропетровська область',
-      reg2: '🌊 Запоріжжя', reg2sub: 'та Запорізька область',
-      reg3: '⚙️ Донецька область', reg3sub: 'підконтрольна Україні',
-      footSub: 'Терміновий викуп авто · Дніпро · Запоріжжя · Донецька область',
-      modalTitle: 'Заявку прийнято!',
-      modalSub: 'Наш менеджер зателефонує вам протягом 5 хвилин. Дякуємо!',
-      btnClose: 'Закрити',
-    },
-    ru: {
-      pageTitle: 'АвтоСдай — Срочный выкуп авто в Днепре, Запорожье, Донецкой обл.',
-      h1: 'Выкуп авто<br><span class="hl">за 2 часа</span>',
-      heroSub: 'Купим ваш автомобиль в любом состоянии — быстро, честно, по реальной цене',
-      tag1: '📍 Днепр', tag2: '📍 Запорожье', tag3: '📍 Донецкая область',
-      badge1num: '95%', badge1txt: 'от рыночной стоимости',
-      badge2num: '2ч', badge2txt: 'полный цикл сделки',
-      badge3num: '16л', badge3txt: 'на рынке с 2010',
-      formTitle: 'Узнайте стоимость авто', formSub: 'Бесплатная оценка за 5 минут',
-      lPhone: 'Ваш телефон', lCond: 'Состояние авто', lYear: 'Год авто',
-      lGear: 'Коробка передач',
-      optCondDef: '— Выберите состояние —',
-      optCond1: 'Отличное (без повреждений)', optCond2: 'Хорошее (мелкие дефекты)',
-      optCond3: 'После ДТП', optCond4: 'Требует ремонта', optCond5: 'Не на ходу',
-      optCond6: 'После пожара / затопления',
-      optCond1Sh: 'Отличное', optCond2Sh: 'Хорошее', optCond4Sh: 'На ремонт',
-      optYearDef: '— Год выпуска —', optBefore: 'До 2005', optBefore2: 'До 2010',
-      optGearDef: '— Тип КПП —', optGear1: 'Автомат', optGear2: 'Механика',
-      optGear3: 'Вариатор', optGear4: 'Робот',
-      btnEval: '⚡ Получить бесплатную оценку',
-      fNote: '🔒 Перезвоним в течение 5 минут',
-      buyTitle: 'Быстро выкупим ваш автомобиль', buySub: 'в любом состоянии',
-      cond1: 'После ДТП', cond2: 'Кредитный', cond3: 'Затопленный', cond4: 'После пожара',
-      cond5: 'Проблемный', cond6: 'Отечественный', cond7: 'Нерастаможенный', cond8: 'С проблем. документами',
-      benefSince: '✦ работаем с 2010 года ✦',
-      benefTitle: 'У нас <span class="hl">лучшие условия</span>',
-      bNum1: 'до 95%', bTit1: 'от рыночной стоимости',
-      bTxt1: 'Платим максимально. Никакого снижения цены в последний момент — только честная сделка.',
-      bNum2: '5 минут', bTit2: 'бесплатная оценка',
-      bTxt2: 'Оценим ваш автомобиль по телефону бесплатно и без обязательств с вашей стороны.',
-      bNum3: 'сразу', bTit3: 'деньги после сделки',
-      bTxt3: 'Полная сумма наличными или на карту в день подписания — никакого ожидания.',
-      bNum4: '2 часа', bTit4: 'цикл сделки',
-      bTxt4: 'От первого звонка до денег у вас в руках — не более двух часов.',
-      midTitle: 'Рассчитайте стоимость авто', midSub: 'бесплатно за 30 секунд',
-      carsTitle: 'Последние выкупленные авто',
-      carsSub: 'состояние вашего авто для нас не важно — выкупим любой',
-      carCond0: 'Отличное состояние', carCond1: 'После ДТП', carCond2: 'Хорошее состояние',
-      carCond3: 'Кредитный', carCond4: 'Требует ремонта',
-      callTitle: 'Позвоните нам',
-      callSub: 'или оставьте заявку на сайте, чтобы узнать стоимость своего авто за 5 минут',
-      stat1: 'выкупленных авто в год', stat2: 'осмотренных авто в год',
-      stat3: 'платим от розничной стоимости', stat4: 'принятых заявок в год',
-      revTitle: 'Отзывы о нашей работе', revSub: 'мы благодарны каждому, кто их оставляет',
-      rev1txt: 'Был автомобиль с проблемами по кузову и технике. Продавать на сайтах не хотел — долго. После предварительной оценки по телефону приехал сотрудник, осмотрели, договорились о цене, сделка состоялась. Всем очень доволен.',
-      rev1tag: 'Днепр · проблемы с кузовом и техникой',
-      rev2txt: 'Купил авто в кредит в 2011 году, выплатить не успел, банк наложил арест. Нашёл «АвтоСдай» в интернете. Цена устроила, хотя юридически были большие проблемы по машине. Ребятам спасибо!',
-      rev2tag: 'Запорожье · арест от банка',
-      rev3txt: 'Попал в ДТП. Восстанавливать не было ни сил, ни денег. Продал «как есть» — цену предложили хорошую с учётом повреждений. Документы оформили за 3 часа, потом рассчитались. Рекомендую!',
-      rev3tag: 'Днепр · авто после ДТП',
-      botTitle: 'Узнайте за <span class="hl">5 минут</span>',
-      botSub: 'сколько вы получите за свой автомобиль',
-      btnSend: 'Отправить заявку →',
-      faqTitle: 'Частые вопросы',
-      faqSub: 'собрали самые популярные вопросы и ответили на них',
-      faq1q: 'Сколько вы платите за автомобиль?',
-      faq1a: 'Платим до 95% от розничной стоимости вашего авто. Перед выплатой необходимо узнать начальные данные: год, состояние, марку — и осмотреть автомобиль.',
-      faq2q: 'Как с вами связаться?',
-      faq2a: 'Звоните по номеру <a href="tel:+380981344096">+38 (098) 134-40-96</a>, пишите в Viber или Telegram по тому же номеру, или оставляйте заявку на сайте — перезвоним.',
-      faq3q: 'Какие авто вы выкупаете?',
-      faq3a: 'Абсолютно любые: новые, в хорошем состоянии, после ДТП, на запчасти, затопленные, иномарки, отечественные, с проблемными документами, под арестом, кредитные, нерастаможенные — любой ваш автомобиль.',
-      faq4q: 'Когда я получу деньги?',
-      faq4a: 'Полную стоимость выплачиваем в тот же день — после осмотра авто и договорённости о цене. На это нужно около 2 часов.',
-      faq5q: 'Нужно ли везти авто к вам?',
-      faq5a: 'Нет! Мы приедем к вам и осмотрим автомобиль после предварительного звонка. Любое место в пределах Днепра, Запорожья и Донецкой области.',
-      faq6q: 'Кто занимается оформлением документов?',
-      faq6a: 'Мы всё сделаем за вас — быстро и качественно. Оформление всех документов берём на себя.',
-      faq7q: 'В каких регионах вы работаете?',
-      faq7a: 'Днепр и Днепропетровская область, Запорожье и Запорожская область, Донецкая область (подконтрольная Украине). Также рассматриваем другие города — уточняйте по телефону.',
-      regTitle: 'Районы <span class="hl">работы</span>',
-      reg1: '🏙️ Днепр', reg1sub: 'и Днепропетровская область',
-      reg2: '🌊 Запорожье', reg2sub: 'и Запорожская область',
-      reg3: '⚙️ Донецкая область', reg3sub: 'подконтрольная Украине',
-      footSub: 'Срочный выкуп авто · Днепр · Запорожье · Донецкая область',
-      modalTitle: 'Заявка принята!',
-      modalSub: 'Наш менеджер позвонит вам в течение 5 минут. Спасибо!',
-      btnClose: 'Закрыть',
-    }
-  };
+var condUA=['— Оберіть стан —','Відмінний (без ушкоджень)','Хороший (дрібні дефекти)','Після ДТП','Потребує ремонту','Не на ходу','Після пожежі / затоплення'];
+var condRU=['— Выберите состояние —','Отличное (без повреждений)','Хорошее (мелкие дефекты)','После ДТП','Требует ремонта','Не на ходу','После пожара / затопления'];
+var gearUA=['— Тип КПП —','Автомат','Механіка','Варіатор','Робот'];
+var gearRU=['— Тип КПП —','Автомат','Механика','Вариатор','Робот'];
 
-  /* ─── LANG SWITCHER ─── */
-  let currentLang = localStorage.getItem('avtozdai_lang') || 'uk';
-
-  function setLang(l) {
-    currentLang = l;
-    localStorage.setItem('avtozdai_lang', l);
-    document.documentElement.lang = l === 'uk' ? 'uk' : 'ru';
-
-    // Update all [data-i18n] elements
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.getAttribute('data-i18n');
-      if (i18n[l] && i18n[l][key] !== undefined) {
-        el.innerHTML = i18n[l][key];
-      }
-    });
-
-    // Update page title
-    if (i18n[l].pageTitle) document.title = i18n[l].pageTitle;
-
-    // Update ticker texts
-    const t1 = document.getElementById('ticker1');
-    const t2 = document.getElementById('ticker2');
-    if (t1 && l === 'ru') {
-      t1.innerHTML = '&nbsp;&nbsp;&nbsp;⚡ ДОВОЕННАЯ СТОИМОСТЬ И БЕЗ ОБМАНА &nbsp;/&nbsp; ДОВОЕННАЯ СТОИМОСТЬ И БЕЗ ОБМАНА &nbsp;/&nbsp; ДОВОЕННАЯ СТОИМОСТЬ И БЕЗ ОБМАНА &nbsp;/&nbsp; ДОВОЕННАЯ СТОИМОСТЬ И БЕЗ ОБМАНА &nbsp;/&nbsp; ДОВОЕННАЯ СТОИМОСТЬ И БЕЗ ОБМАНА &nbsp;/&nbsp; ДОВОЕННАЯ СТОИМОСТЬ И БЕЗ ОБМАНА &nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚡ ДОВОЕННАЯ СТОИМОСТЬ И БЕЗ ОБМАНА &nbsp;/&nbsp; ДОВОЕННАЯ СТОИМОСТЬ И БЕЗ ОБМАНА &nbsp;/&nbsp; ДОВОЕННАЯ СТОИМОСТЬ И БЕЗ ОБМАНА &nbsp;/&nbsp; ДОВОЕННАЯ СТОИМОСТЬ И БЕЗ ОБМАНА &nbsp;/&nbsp; ДОВОЕННАЯ СТОИМОСТЬ И БЕЗ ОБМАНА &nbsp;/&nbsp; ДОВОЕННАЯ СТОИМОСТЬ И БЕЗ ОБМАНА &nbsp;/&nbsp;';
-    } else if (t1) {
-      t1.innerHTML = '&nbsp;&nbsp;&nbsp;⚡ ДОВОЄННА ВАРТІСТЬ І БЕЗ ОБМАНУ &nbsp;/&nbsp; ДОВОЄННА ВАРТІСТЬ І БЕЗ ОБМАНУ &nbsp;/&nbsp; ДОВОЄННА ВАРТІСТЬ І БЕЗ ОБМАНУ &nbsp;/&nbsp; ДОВОЄННА ВАРТІСТЬ І БЕЗ ОБМАНУ &nbsp;/&nbsp; ДОВОЄННА ВАРТІСТЬ І БЕЗ ОБМАНУ &nbsp;/&nbsp; ДОВОЄННА ВАРТІСТЬ І БЕЗ ОБМАНУ &nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚡ ДОВОЄННА ВАРТІСТЬ І БЕЗ ОБМАНУ &nbsp;/&nbsp; ДОВОЄННА ВАРТІСТЬ І БЕЗ ОБМАНУ &nbsp;/&nbsp; ДОВОЄННА ВАРТІСТЬ І БЕЗ ОБМАНУ &nbsp;/&nbsp; ДОВОЄННА ВАРТІСТЬ І БЕЗ ОБМАНУ &nbsp;/&nbsp; ДОВОЄННА ВАРТІСТЬ І БЕЗ ОБМАНУ &nbsp;/&nbsp; ДОВОЄННА ВАРТІСТЬ І БЕЗ ОБМАНУ &nbsp;/&nbsp;';
-    }
-    if (t2 && l === 'ru') {
-      t2.innerHTML = '&nbsp;&nbsp;&nbsp;🛡️ РАБОТАЕМ В ВОЕННОЕ ВРЕМЯ &nbsp;/&nbsp; РАБОТАЕМ В ВОЕННОЕ ВРЕМЯ &nbsp;/&nbsp; РАБОТАЕМ В ВОЕННОЕ ВРЕМЯ &nbsp;/&nbsp; РАБОТАЕМ В ВОЕННОЕ ВРЕМЯ &nbsp;/&nbsp; РАБОТАЕМ В ВОЕННОЕ ВРЕМЯ &nbsp;/&nbsp; РАБОТАЕМ В ВОЕННОЕ ВРЕМЯ &nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🛡️ РАБОТАЕМ В ВОЕННОЕ ВРЕМЯ &nbsp;/&nbsp; РАБОТАЕМ В ВОЕННОЕ ВРЕМЯ &nbsp;/&nbsp; РАБОТАЕМ В ВОЕННОЕ ВРЕМЯ &nbsp;/&nbsp; РАБОТАЕМ В ВОЕННОЕ ВРЕМЯ &nbsp;/&nbsp; РАБОТАЕМ В ВОЕННОЕ ВРЕМЯ &nbsp;/&nbsp; РАБОТАЕМ В ВОЕННОЕ ВРЕМЯ &nbsp;/&nbsp;';
-    } else if (t2) {
-      t2.innerHTML = '&nbsp;&nbsp;&nbsp;🛡️ ПРАЦЮЄМО В ВОЄННИЙ ЧАС &nbsp;/&nbsp; ПРАЦЮЄМО В ВОЄННИЙ ЧАС &nbsp;/&nbsp; ПРАЦЮЄМО В ВОЄННИЙ ЧАС &nbsp;/&nbsp; ПРАЦЮЄМО В ВОЄННИЙ ЧАС &nbsp;/&nbsp; ПРАЦЮЄМО В ВОЄННИЙ ЧАС &nbsp;/&nbsp; ПРАЦЮЄМО В ВОЄННИЙ ЧАС &nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🛡️ ПРАЦЮЄМО В ВОЄННИЙ ЧАС &nbsp;/&nbsp; ПРАЦЮЄМО В ВОЄННИЙ ЧАС &nbsp;/&nbsp; ПРАЦЮЄМО В ВОЄННИЙ ЧАС &nbsp;/&nbsp; ПРАЦЮЄМО В ВОЄННИЙ ЧАС &nbsp;/&nbsp; ПРАЦЮЄМО В ВОЄННИЙ ЧАС &nbsp;/&nbsp; ПРАЦЮЄМО В ВОЄННИЙ ЧАС &nbsp;/&nbsp;';
-    }
-
-    // Update active button
-    document.querySelectorAll('.lang-btn').forEach(b => {
-      b.classList.toggle('active', b.getAttribute('data-lang') === l);
-    });
-  }
-
-  // Apply saved lang on load
-  setLang(currentLang);
-
-  /* ─── FORM & FAQ ─── */
-  function submitForm(e) {
-    e.preventDefault();
-    document.getElementById('modal').classList.add('show');
-  }
-  function closeModal() {
-    document.getElementById('modal').classList.remove('show');
-  }
-  document.getElementById('modal').addEventListener('click', function(e) {
-    if (e.target === this) closeModal();
+function fillSelects(lang){
+  var conds=lang==='ru'?condRU:condUA;
+  var gears=lang==='ru'?gearRU:gearUA;
+  document.querySelectorAll('.sel-cond').forEach(function(s){
+    s.innerHTML='';
+    conds.forEach(function(t,i){var o=document.createElement('option');o.value=i?t:'';o.textContent=t;s.appendChild(o);});
   });
-  function toggleFaq(el) {
-    el.parentElement.classList.toggle('open');
-  }
+  document.querySelectorAll('.sel-gear').forEach(function(s){
+    s.innerHTML='';
+    gears.forEach(function(t,i){var o=document.createElement('option');o.value=i?t:'';o.textContent=t;s.appendChild(o);});
+  });
+}
+
+function setLang(l){
+  document.documentElement.lang=l;
+  localStorage.setItem('lang',l);
+  document.querySelectorAll('.lang-btn').forEach(function(b){b.classList.toggle('active',b.dataset.lang===l);});
+  fillSelects(l);
+}
+
+(function(){
+  var l=localStorage.getItem('lang')||'uk';
+  setLang(l);
+})();
+
+function submitForm(e){e.preventDefault();document.getElementById('modal').classList.add('show');}
+function closeModal(){document.getElementById('modal').classList.remove('show');}
+document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+function toggleFaq(el){el.parentElement.classList.toggle('open');}
 </script>
 </body>
 </html>
