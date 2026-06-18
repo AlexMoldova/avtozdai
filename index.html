@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>АвтоЗдай — Викуп авто в Дніпрі, Запоріжжі, Донецькій обл.</title>
+  <meta name="description" content="Терміновий викуп авто в Дніпрі, Запоріжжі та Донецькій області. Платимо до 95% від ринкової вартості. Виїжджаємо за 30 хвилин. Гроші одразу.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:   #0d1f3c;
+      --navy2:  #142848;
+      --navy3:  #1c3560;
+      --gold:   #f59e0b;
+      --gold2:  #fbbf24;
+      --white:  #ffffff;
+      --gray:   #94a3b8;
+      --light:  #e2e8f0;
+      --green:  #10b981;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--navy2);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 20px rgba(0,0,0,.5);
+    }
+    .logo { font-size: 1.6rem; font-weight: 900; color: var(--gold); letter-spacing: -1px; }
+    .logo span { color: var(--white); }
+    .header-phone a {
+      color: var(--gold2);
+      font-size: 1.2rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .header-phone a:hover { color: var(--white); }
+    .header-messengers { display: flex; gap: 10px; margin-top: 4px; }
+    .header-messengers a { color: var(--gray); font-size: .8rem; text-decoration: none; transition: color .2s; }
+    .header-messengers a:hover { color: var(--gold); }
+
+    /* ── TICKER ── */
+    .ticker-wrap {
+      background: var(--gold);
+      padding: 10px 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .ticker-inner {
+      display: inline-block;
+      animation: ticker 35s linear infinite;
+      color: var(--navy);
+      font-weight: 700;
+      font-size: .95rem;
+      letter-spacing: .5px;
+    }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, #0d1f3c 0%, #142848 50%, #1c3560 100%);
+      padding: 70px 20px 60px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 14px;
+    }
+    .hero h1 span { color: var(--gold); }
+    .hero .sub {
+      font-size: 1.15rem;
+      color: var(--light);
+      margin-bottom: 10px;
+    }
+    .hero .regions {
+      display: inline-flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+    .region-tag {
+      background: rgba(245,158,11,.15);
+      border: 1px solid var(--gold);
+      color: var(--gold2);
+      padding: 5px 14px;
+      border-radius: 50px;
+      font-size: .85rem;
+      font-weight: 600;
+    }
+    /* form card */
+    .hero-form {
+      background: var(--navy2);
+      border: 1px solid var(--navy3);
+      border-radius: 16px;
+      padding: 36px 32px;
+      max-width: 480px;
+      margin: 0 auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,.5);
+    }
+    .hero-form h2 { font-size: 1.3rem; font-weight: 700; margin-bottom: 6px; }
+    .hero-form p { color: var(--gray); font-size: .9rem; margin-bottom: 24px; }
+    .form-group { margin-bottom: 16px; text-align: left; }
+    .form-group label { display: block; font-size: .82rem; color: var(--gray); margin-bottom: 6px; }
+    .form-group select,
+    .form-group input {
+      width: 100%;
+      padding: 13px 16px;
+      background: var(--navy3);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 10px;
+      color: var(--white);
+      font-size: 1rem;
+      font-family: inherit;
+      appearance: none;
+      transition: border-color .2s;
+    }
+    .form-group select:focus,
+    .form-group input:focus { outline: none; border-color: var(--gold); }
+    .form-group select option { background: var(--navy2); }
+    .btn-main {
+      width: 100%;
+      padding: 16px;
+      background: var(--gold);
+      color: var(--navy);
+      font-weight: 800;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background .2s, transform .1s;
+    }
+    .btn-main:hover { background: var(--gold2); transform: translateY(-1px); }
+    .form-note { font-size: .75rem; color: var(--gray); margin-top: 10px; text-align: center; }
+
+    /* ── SECTION COMMON ── */
+    section { padding: 70px 20px; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .section-title span { color: var(--gold); }
+    .section-sub {
+      text-align: center;
+      color: var(--gray);
+      margin-bottom: 48px;
+      font-size: .97rem;
+    }
+
+    /* ── WHAT WE BUY ── */
+    .what-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 16px;
+    }
+    .what-card {
+      background: var(--navy2);
+      border: 1px solid var(--navy3);
+      border-radius: 14px;
+      padding: 28px 16px;
+      text-align: center;
+      transition: border-color .2s, transform .2s;
+    }
+    .what-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+    .what-card .icon { font-size: 2.2rem; margin-bottom: 10px; }
+    .what-card p { font-size: .9rem; font-weight: 600; }
+
+    /* ── WHY US ── */
+    .why-section { background: var(--navy2); }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+    .why-card {
+      background: var(--navy);
+      border-left: 4px solid var(--gold);
+      border-radius: 12px;
+      padding: 28px 24px;
+    }
+    .why-card .num {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .why-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .why-card p { color: var(--gray); font-size: .9rem; line-height: 1.5; }
+
+    /* ── STEPS ── */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+      position: relative;
+    }
+    .step {
+      text-align: center;
+      padding: 0 10px;
+    }
+    .step-num {
+      width: 56px; height: 56px;
+      background: var(--gold);
+      color: var(--navy);
+      font-size: 1.5rem;
+      font-weight: 900;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px;
+    }
+    .step h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .step p { color: var(--gray); font-size: .88rem; }
+
+    /* ── STATS ── */
+    .stats-section { background: var(--gold); }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 24px;
+      text-align: center;
+    }
+    .stat-num { font-size: 2.8rem; font-weight: 900; color: var(--navy); line-height: 1; }
+    .stat-label { font-size: .9rem; color: var(--navy2); font-weight: 600; margin-top: 4px; }
+
+    /* ── REVIEWS ── */
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .review-card {
+      background: var(--navy2);
+      border: 1px solid var(--navy3);
+      border-radius: 14px;
+      padding: 28px 24px;
+    }
+    .review-stars { color: var(--gold); font-size: 1.1rem; margin-bottom: 12px; }
+    .review-text { color: var(--light); font-size: .9rem; line-height: 1.6; margin-bottom: 16px; }
+    .review-author { font-weight: 700; font-size: .9rem; }
+    .review-tag { color: var(--gray); font-size: .8rem; }
+
+    /* ── FAQ ── */
+    .faq-section { background: var(--navy2); }
+    .faq-list { max-width: 750px; margin: 0 auto; }
+    .faq-item {
+      border-bottom: 1px solid var(--navy3);
+      padding: 22px 0;
+    }
+    .faq-q {
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .faq-q .arrow { color: var(--gold); font-size: 1.2rem; transition: transform .3s; flex-shrink: 0; }
+    .faq-a {
+      color: var(--gray);
+      font-size: .92rem;
+      line-height: 1.6;
+      margin-top: 12px;
+      display: none;
+    }
+    .faq-item.open .faq-a { display: block; }
+    .faq-item.open .arrow { transform: rotate(180deg); }
+
+    /* ── CTA ── */
+    .cta-section {
+      background: linear-gradient(135deg, var(--navy3), var(--navy2));
+      text-align: center;
+      padding: 80px 20px;
+    }
+    .cta-section h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; margin-bottom: 14px; }
+    .cta-section p { color: var(--gray); margin-bottom: 36px; font-size: 1rem; }
+    .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 32px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: transform .2s, opacity .2s;
+    }
+    .btn-cta:hover { transform: translateY(-2px); opacity: .9; }
+    .btn-call  { background: var(--gold); color: var(--navy); }
+    .btn-viber { background: #7360f2; color: #fff; }
+    .btn-tg    { background: #229ed9; color: #fff; }
+    .btn-wa    { background: #25d366; color: #fff; }
+
+    /* ── REGIONS ── */
+    .regions-section { text-align: center; }
+    .regions-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+      margin-top: 16px;
+    }
+    .region-big {
+      background: var(--navy2);
+      border: 2px solid var(--gold);
+      border-radius: 14px;
+      padding: 20px 32px;
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+    .region-big span { display: block; color: var(--gray); font-size: .8rem; font-weight: 400; margin-top: 4px; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #080f1e;
+      padding: 32px 20px;
+      text-align: center;
+      color: var(--gray);
+      font-size: .85rem;
+    }
+    footer a { color: var(--gold); text-decoration: none; }
+    .footer-logo { font-size: 1.3rem; font-weight: 900; color: var(--gold); margin-bottom: 8px; }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.7);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal {
+      background: var(--navy2);
+      border: 1px solid var(--navy3);
+      border-radius: 16px;
+      padding: 40px 32px;
+      max-width: 420px;
+      width: 90%;
+      text-align: center;
+    }
+    .modal .close {
+      position: absolute;
+      top: 14px; right: 18px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--gray);
+    }
+    .modal h2 { font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; }
+    .modal p { color: var(--gray); margin-bottom: 24px; }
+    .modal .icon-big { font-size: 3rem; margin-bottom: 12px; }
+    .modal-relative { position: relative; }
+
+    @media (max-width: 600px) {
+      .hero-form { padding: 28px 20px; }
+      .hero { padding: 50px 16px 48px; }
+      .header-messengers { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">Авто<span>Здай</span></div>
+  <div class="header-phone">
+    <a href="tel:+380981344096">+38 (098) 134-40-96</a>
+    <div class="header-messengers">
+      <a href="viber://chat?number=%2B380981344096">📱 Viber</a>
+      <a href="https://t.me/+380981344096">✈️ Telegram</a>
+      <a href="https://wa.me/380981344096">💬 WhatsApp</a>
+    </div>
+  </div>
+</header>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    &nbsp;&nbsp;&nbsp;⚡ ВИКУПАЄМО АВТО В ВОЄННИЙ ЧАС &nbsp;|&nbsp; ДО 95% ВІД РИНКОВОЇ ВАРТОСТІ &nbsp;|&nbsp; ВИЇЗД ЗА 30 ХВИЛИН &nbsp;|&nbsp; ГРОШІ ОДРАЗУ &nbsp;|&nbsp; ДНІПРО · ЗАПОРІЖЖЯ · ДОНЕЦЬКА ОБЛАСТЬ &nbsp;|&nbsp; ⚡ ВИКУПАЄМО АВТО В ВОЄННИЙ ЧАС &nbsp;|&nbsp; ДО 95% ВІД РИНКОВОЇ ВАРТОСТІ &nbsp;|&nbsp; ВИЇЗД ЗА 30 ХВИЛИН &nbsp;|&nbsp; ГРОШІ ОДРАЗУ &nbsp;|&nbsp; ДНІПРО · ЗАПОРІЖЖЯ · ДОНЕЦЬКА ОБЛАСТЬ &nbsp;|&nbsp;
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <h1>Терміновий викуп авто<br><span>за 2 години</span></h1>
+    <p class="sub">Купуємо будь-яке авто в будь-якому стані — швидко і чесно</p>
+    <div class="regions">
+      <span class="region-tag">📍 Дніпро</span>
+      <span class="region-tag">📍 Запоріжжя</span>
+      <span class="region-tag">📍 Донецька область</span>
+    </div>
+
+    <div class="hero-form">
+      <h2>Дізнайтесь вартість за 5 хвилин</h2>
+      <p>Оцінка безкоштовно — без зобов'язань</p>
+      <form onsubmit="handleSubmit(event)">
+        <div class="form-group">
+          <label>Рік випуску авто</label>
+          <select name="year" required>
+            <option value="">— Оберіть рік —</option>
+            <option>2023</option><option>2022</option><option>2021</option><option>2020</option>
+            <option>2019</option><option>2018</option><option>2017</option><option>2016</option>
+            <option>2015</option><option>2014</option><option>2013</option><option>2012</option>
+            <option>2011</option><option>2010</option><option>2009</option><option>2008</option>
+            <option>2007</option><option>2006</option><option>2005</option>
+            <option>До 2005</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Стан автомобіля</label>
+          <select name="condition" required>
+            <option value="">— Оберіть стан —</option>
+            <option>Відмінний (без ушкоджень)</option>
+            <option>Хороший (дрібні дефекти)</option>
+            <option>Після ДТП</option>
+            <option>Потребує ремонту</option>
+            <option>Не на ходу</option>
+            <option>Після пожежі / затоплення</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Коробка передач</label>
+          <select name="gearbox" required>
+            <option value="">— Оберіть КПП —</option>
+            <option>Автоматична</option>
+            <option>Механічна</option>
+            <option>Варіатор</option>
+            <option>Робот (DSG)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Ваш номер телефону</label>
+          <input type="tel" name="phone" placeholder="+380 XX XXX XX XX" required>
+        </div>
+        <button type="submit" class="btn-main">⚡ Отримати безкоштовну оцінку</button>
+      </form>
+      <p class="form-note">🔒 Ваші дані захищені. Передзвонимо протягом 5 хвилин.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT WE BUY -->
+<section>
+  <div class="container">
+    <h2 class="section-title">Купуємо <span>будь-яке</span> авто</h2>
+    <p class="section-sub">Стан не має значення — ми оцінимо і зробимо справедливу пропозицію</p>
+    <div class="what-grid">
+      <div class="what-card"><div class="icon">🚗</div><p>У відмінному стані</p></div>
+      <div class="what-card"><div class="icon">💥</div><p>Після ДТП</p></div>
+      <div class="what-card"><div class="icon">🔥</div><p>Після пожежі</p></div>
+      <div class="what-card"><div class="icon">💧</div><p>Після затоплення</p></div>
+      <div class="what-card"><div class="icon">🔧</div><p>Проблемне / на ремонт</p></div>
+      <div class="what-card"><div class="icon">📄</div><p>З проблемними документами</p></div>
+      <div class="what-card"><div class="icon">🏦</div><p>Кредитне / під арештом</p></div>
+      <div class="what-card"><div class="icon">🌍</div><p>Нерозмитнене</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why-section">
+  <div class="container">
+    <h2 class="section-title">Чому обирають <span>АвтоЗдай</span></h2>
+    <p class="section-sub">Ми на ринку з 2010 року — більше 2000 угод</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="num">95%</div>
+        <h3>від ринкової вартості</h3>
+        <p>Платимо максимально — без зниження ціни в останню мить та без прихованих комісій.</p>
+      </div>
+      <div class="why-card">
+        <div class="num">30хв</div>
+        <h3>до вашого авто</h3>
+        <p>Виїжджаємо одразу після дзвінка. Дніпро, Запоріжжя, Донецька область — скрізь.</p>
+      </div>
+      <div class="why-card">
+        <div class="num">2год</div>
+        <h3>повний цикл угоди</h3>
+        <p>Від першого дзвінка до отримання грошей у вас в руках — не більше двох годин.</p>
+      </div>
+      <div class="why-card">
+        <div class="num">0₴</div>
+        <h3>оцінка безкоштовно</h3>
+        <p>Не беремо грошей за огляд і оцінку. Рішення за вами — без тиску і нав'язування.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section>
+  <div class="container">
+    <h2 class="section-title">Як це <span>працює</span></h2>
+    <p class="section-sub">Чотири прості кроки до готівки в руках</p>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Залишіть заявку</h3>
+        <p>Зателефонуйте або заповніть форму — отримаєте попередню ціну за 5 хвилин.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Виїзд нашого фахівця</h3>
+        <p>Приїдемо до вас у зручне місце — вдома, на роботі або на стоянці.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Огляд та оцінка</h3>
+        <p>Швидкий огляд авто і фінальна ціна. Ніякого тиску — вирішуєте ви.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h3>Гроші одразу</h3>
+        <p>Підписуємо документи — ви отримуєте повну суму готівкою або на картку.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-section">
+  <div class="container">
+    <div class="stats-grid">
+      <div>
+        <div class="stat-num">2 100+</div>
+        <div class="stat-label">прийнятих заявок за рік</div>
+      </div>
+      <div>
+        <div class="stat-num">500+</div>
+        <div class="stat-label">викуплених авто за рік</div>
+      </div>
+      <div>
+        <div class="stat-num">16</div>
+        <div class="stat-label">років на ринку</div>
+      </div>
+      <div>
+        <div class="stat-num">95%</div>
+        <div class="stat-label">від ринкової вартості</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section>
+  <div class="container">
+    <h2 class="section-title">Що кажуть <span>клієнти</span></h2>
+    <p class="section-sub">Ми вдячні кожному, хто ділиться досвідом</p>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Продавав Хюндай після ДТП — думав, взагалі нічого не дадуть. Запропонували нормальну ціну, приїхали за годину, оформили все самі. Готівка на руках того ж дня. Рекомендую!</p>
+        <div class="review-author">Андрій К.</div>
+        <div class="review-tag">Дніпро · авто після ДТП</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Мав кредитний Volkswagen, банк наклав арест. Ніхто не хотів братись. Ці хлопці взяли без зайвих питань, вирішили всі юридичні моменти і заплатили чесно. Дуже вдячний.</p>
+        <div class="review-author">Олег В.</div>
+        <div class="review-tag">Запоріжжя · кредитне авто</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Терміново потрібні були гроші. Зателефонував вранці — ввечері авто вже не моє і гроші в кишені. Весь процес зайняв менше трьох годин. Оцінка вище за мої очікування.</p>
+        <div class="review-author">Наталя М.</div>
+        <div class="review-tag">Дніпро · авто в хорошому стані</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="container">
+    <h2 class="section-title">Часті <span>запитання</span></h2>
+    <p class="section-sub">Відповідаємо на найпопулярніші питання</p>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Скільки ви платите за автомобіль?
+          <span class="arrow">▼</span>
+        </div>
+        <div class="faq-a">Платимо до 95% від ринкової роздрібної вартості вашого авто. Точна ціна залежить від стану, року випуску та марки. Оцінка безкоштовна і ні до чого не зобов'язує.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Які автомобілі ви викупляєте?
+          <span class="arrow">▼</span>
+        </div>
+        <div class="faq-a">Будь-які — нові, старі, після ДТП, після пожежі, затоплені, кредитні, під арештом, з проблемними документами, нерозмитнені. Стан не має значення.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Коли я отримаю гроші?
+          <span class="arrow">▼</span>
+        </div>
+        <div class="faq-a">Одразу після підписання документів — у день угоди. Готівкою або на картку на ваш вибір. Жодних відстрочок і очікувань.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Чи потрібно везти авто до вас?
+          <span class="arrow">▼</span>
+        </div>
+        <div class="faq-a">Ні. Ми самі приїдемо до вас — додому, на роботу, в будь-яке зручне місце в межах Дніпра, Запоріжжя або Донецької області.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Хто займається оформленням документів?
+          <span class="arrow">▼</span>
+        </div>
+        <div class="faq-a">Ми беремо всі документи на себе. Вам не потрібно нічого оформлювати — просто отримуєте гроші і все.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          В яких регіонах ви працюєте?
+          <span class="arrow">▼</span>
+        </div>
+        <div class="faq-a">Дніпро та Дніпропетровська область, Запоріжжя та Запорізька область, Донецька область (підконтрольна Україні). Також розглядаємо інші міста — уточнюйте по телефону.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REGIONS -->
+<section class="regions-section">
+  <div class="container">
+    <h2 class="section-title">Райони <span>роботи</span></h2>
+    <p class="section-sub">Виїжджаємо по всьому регіону без доплат</p>
+    <div class="regions-list">
+      <div class="region-big">🏙️ Дніпро <span>та Дніпропетровська область</span></div>
+      <div class="region-big">🌊 Запоріжжя <span>та Запорізька область</span></div>
+      <div class="region-big">⚙️ Донецька область <span>підконтрольна Україні</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2>Готові продати авто?<br>Зателефонуйте прямо зараз</h2>
+    <p>Ми відповімо за 5 хвилин і назвемо попередню ціну — безкоштовно і без зобов'язань</p>
+    <div class="cta-buttons">
+      <a href="tel:+380981344096" class="btn-cta btn-call">📞 +380 98 134-40-96</a>
+      <a href="viber://chat?number=%2B380981344096" class="btn-cta btn-viber">📱 Viber</a>
+      <a href="https://t.me/+380981344096" class="btn-cta btn-tg">✈️ Telegram</a>
+      <a href="https://wa.me/380981344096" class="btn-cta btn-wa">💬 WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">АвтоЗдай</div>
+  <p>Терміновий викуп авто · Дніпро · Запоріжжя · Донецька область</p>
+  <p style="margin-top:8px;">
+    <a href="tel:+380981344096">+380 98 134-40-96</a> &nbsp;|&nbsp;
+    <a href="viber://chat?number=%2B380981344096">Viber</a> &nbsp;|&nbsp;
+    <a href="https://t.me/+380981344096">Telegram</a> &nbsp;|&nbsp;
+    <a href="https://wa.me/380981344096">WhatsApp</a>
+  </p>
+  <p style="margin-top:16px; color:#4a5568;">© 2025 АвтоЗдай. Всі права захищені.</p>
+</footer>
+
+<!-- SUCCESS MODAL -->
+<div class="modal-overlay" id="successModal">
+  <div class="modal modal-relative">
+    <span class="close" onclick="closeModal()">✕</span>
+    <div class="icon-big">✅</div>
+    <h2>Заявку прийнято!</h2>
+    <p>Наш менеджер зателефонує вам протягом 5 хвилин. Дякуємо!</p>
+    <button class="btn-main" onclick="closeModal()">Закрити</button>
+  </div>
+</div>
+
+<script>
+  function toggleFaq(el) {
+    el.parentElement.classList.toggle('open');
+  }
+  function handleSubmit(e) {
+    e.preventDefault();
+    document.getElementById('successModal').classList.add('active');
+  }
+  function closeModal() {
+    document.getElementById('successModal').classList.remove('active');
+  }
+  document.getElementById('successModal').addEventListener('click', function(e){
+    if(e.target === this) closeModal();
+  });
+</script>
+</body>
+</html>
