@@ -89,11 +89,12 @@ html[lang="ru"] .ru{display:revert}
 .s-sub{text-align:center;color:var(--muted);margin-top:8px;font-size:.95rem}
 
 /* ── CONDITIONS ── */
-.cond-grid{margin-top:40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:14px}
-.cond-card{background:var(--bg3);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:24px 12px;text-align:center;transition:border-color .2s,transform .2s;cursor:default}
+.cond-grid{margin-top:40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px}
+.cond-card{background:var(--bg3);border:1px solid rgba(255,255,255,.06);border-radius:10px;overflow:hidden;text-align:center;transition:border-color .2s,transform .2s;cursor:default}
 .cond-card:hover{border-color:var(--gold);transform:translateY(-3px)}
+.cond-card img{width:100%;height:120px;object-fit:cover;display:block}
 .cond-card .ci{font-size:2rem;margin-bottom:10px;display:block}
-.cond-card p{font-size:.83rem;font-weight:700;text-transform:uppercase;letter-spacing:.3px;line-height:1.3}
+.cond-card p{padding:12px 8px 14px;font-size:.83rem;font-weight:700;text-transform:uppercase;letter-spacing:.3px;line-height:1.3}
 
 /* ── BENEFITS ── */
 .benefits-top{text-align:center;margin-bottom:40px}
@@ -327,14 +328,14 @@ footer a{color:var(--gold);text-decoration:none}
     <h2 class="s-title"><span class="ua">Швидко викупимо ваше авто</span><span class="ru">Быстро выкупим ваш автомобиль</span></h2>
     <p class="s-sub"><span class="ua">в будь-якому стані</span><span class="ru">в любом состоянии</span></p>
     <div class="cond-grid">
-      <div class="cond-card"><span class="ci">💥</span><p><span class="ua">Після ДТП</span><span class="ru">После ДТП</span></p></div>
-      <div class="cond-card"><span class="ci">🏦</span><p><span class="ua">Кредитне</span><span class="ru">Кредитный</span></p></div>
-      <div class="cond-card"><span class="ci">💧</span><p><span class="ua">Затоплене</span><span class="ru">Затопленный</span></p></div>
-      <div class="cond-card"><span class="ci">🔥</span><p><span class="ua">Після пожежі</span><span class="ru">После пожара</span></p></div>
-      <div class="cond-card"><span class="ci">🔧</span><p><span class="ua">Проблемне</span><span class="ru">Проблемный</span></p></div>
-      <div class="cond-card"><span class="ci">🇺🇦</span><p><span class="ua">Вітчизняне</span><span class="ru">Отечественный</span></p></div>
-      <div class="cond-card"><span class="ci">🌍</span><p><span class="ua">Нерозмитнене</span><span class="ru">Нерастаможенный</span></p></div>
-      <div class="cond-card"><span class="ci">📄</span><p><span class="ua">З проблем. документами</span><span class="ru">С проблем. документами</span></p></div>
+      <div class="cond-card"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=400&h=300&q=85" alt="Після ДТП"><p><span class="ua">Після ДТП</span><span class="ru">После ДТП</span></p></div>
+      <div class="cond-card"><img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=400&h=300&q=85" alt="Кредитне"><p><span class="ua">Кредитне</span><span class="ru">Кредитный</span></p></div>
+      <div class="cond-card"><img src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&w=400&h=300&q=85" alt="Затоплене"><p><span class="ua">Затоплене</span><span class="ru">Затопленный</span></p></div>
+      <div class="cond-card"><img src="https://images.unsplash.com/photo-1570107612758-21fef5a3afee?auto=format&fit=crop&w=400&h=300&q=85" alt="Після пожежі"><p><span class="ua">Після пожежі</span><span class="ru">После пожара</span></p></div>
+      <div class="cond-card"><img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=400&h=300&q=85" alt="Проблемне"><p><span class="ua">Проблемне</span><span class="ru">Проблемный</span></p></div>
+      <div class="cond-card"><img src="https://images.unsplash.com/photo-1551830820-330a71b99659?auto=format&fit=crop&w=400&h=300&q=85" alt="Вітчизняне"><p><span class="ua">Вітчизняне</span><span class="ru">Отечественный</span></p></div>
+      <div class="cond-card"><img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=400&h=300&q=85" alt="Нерозмитнене"><p><span class="ua">Нерозмитнене</span><span class="ru">Нерастаможенный</span></p></div>
+      <div class="cond-card"><img src="https://images.unsplash.com/photo-1589758438367-0a2f5a3e2d58?auto=format&fit=crop&w=400&h=300&q=85" alt="З проблем. документами"><p><span class="ua">З проблем. документами</span><span class="ru">С проблем. документами</span></p></div>
     </div>
   </div>
 </section>
